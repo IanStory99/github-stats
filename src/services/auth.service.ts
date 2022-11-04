@@ -14,11 +14,11 @@ class AuthService {
   public async signup(userData: CreateUserDto): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
-    const findUser: User = this.users.find(user => user.email === userData.email);
+    const findUser: User = await this.users.findOne({ email: userData.email });
     if (findUser) throw new HttpException(409, `This email ${userData.email} already exists`);
 
     const hashedPassword = await hash(userData.password, 10);
-    const createUserData: User = { id: this.users.length + 1, ...userData, password: hashedPassword };
+    const createUserData: User = await this.users.create({ ...userData, password: hashedPassword });
 
     return createUserData;
   }
@@ -26,11 +26,11 @@ class AuthService {
   public async login(userData: CreateUserDto): Promise<{ cookie: string; findUser: User }> {
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
-    const findUser: User = this.users.find(user => user.email === userData.email);
+    const findUser: User = await this.users.findOne({ email: userData.email });
     if (!findUser) throw new HttpException(409, `This email ${userData.email} was not found`);
 
     const isPasswordMatching: boolean = await compare(userData.password, findUser.password);
-    if (!isPasswordMatching) throw new HttpException(409, "You're password not matching");
+    if (!isPasswordMatching) throw new HttpException(409, "Password is not matching");
 
     const tokenData = this.createToken(findUser);
     const cookie = this.createCookie(tokenData);
@@ -41,14 +41,14 @@ class AuthService {
   public async logout(userData: User): Promise<User> {
     if (isEmpty(userData)) throw new HttpException(400, "userData is empty");
 
-    const findUser: User = this.users.find(user => user.email === userData.email && user.password === userData.password);
-    if (!findUser) throw new HttpException(409, "User doesn't exist");
+    const findUser: User = await this.users.findOne({ email: userData.email, password: userData.password });
+    if (!findUser) throw new HttpException(409, `This email ${userData.email} was not found`);
 
     return findUser;
   }
 
   public createToken(user: User): TokenData {
-    const dataStoredInToken: DataStoredInToken = { id: user.id };
+    const dataStoredInToken: DataStoredInToken = { _id: user._id };
     const secretKey: string = SECRET_KEY;
     const expiresIn: number = 60 * 60;
 
