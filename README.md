@@ -1,15 +1,7 @@
 ## Github Stats
 
-# Install
+# Uso
     
-    $ npm install
-    
-# Run Dev
+    - Crear archivos ".env.<development|production|test>.local" en base al de ejemplo .env.example
 
-    $ npm run dev
-
-    localhost:3000/api-docs/
-
-# Run Build
-
-    $ npm run build
+    $ docker compose up
