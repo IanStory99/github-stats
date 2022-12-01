@@ -1,5 +1,5 @@
 import App from "@/application/app";
-import validateEnv from "@/infrastructure/utils/validateEnv";
+import validateEnv from "@/infrastructure/utils/validatenv.util";
 
 validateEnv();
 

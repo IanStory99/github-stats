@@ -1,4 +1,4 @@
-export class ErrorException extends Error {
+class ErrorException extends Error {
   public code: number;
   public message: string;
 
@@ -8,3 +8,5 @@ export class ErrorException extends Error {
     this.message = message;
   }
 }
+
+export default ErrorException;
