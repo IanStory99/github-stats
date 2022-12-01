@@ -22,17 +22,11 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"],
-      "@config": ["config"],
-      "@controllers/*": ["controllers/*"],
-      "@dtos/*": ["dtos/*"],
-      "@exceptions/*": ["exceptions/*"],
-      "@interfaces/*": ["interfaces/*"],
-      "@middlewares/*": ["middlewares/*"],
-      "@routes/*": ["routes/*"],
-      "@services/*": ["services/*"],
-      "@utils/*": ["utils/*"]
+      "@/application/*": ["application/*"],
+      "@/domain/*": ["domain/*"],
+      "@/infrastructure/*": ["infrastructure/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.json", ".env"],
-  "exclude": ["node_modules", "src/http", "src/logs", "src/tests"]
+  "exclude": ["node_modules", "src/logs", "src/tests"]
 }
