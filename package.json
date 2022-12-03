@@ -5,17 +5,17 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "ts-node ./src/run.ts",
     "clean": "rimraf ./dist/ ./exec/",
     "build": "npm run clean && tsc",
     "bundle": "npm run build && pkg . --out-dir ./exec/",
-    "test": "jest --forceExit --detectOpenHandles",
+    "test:unit": "jest  -c jest.config.unit.js --forceExit --detectOpenHandles",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix",
     "prisma:init": "prisma init",
     "prisma:migrate": "dotenv -e .env.${NODE_ENV}.local -- npx prisma migrate dev --preview-feature",
     "prisma:generate": "prisma generate",
-    "prisma:makemigration": "prisma migrate diff --from-empty --to-schema-datamodel ./src/prisma/schema.prisma --script"
+    "prisma:makemigration": "prisma migrate diff --from-empty --to-schema-datamodel ./src/prisma/schema.prisma --script",
+    "cli": "node ./src/infrastructure/cli/index.js --"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
@@ -24,6 +24,7 @@
     "@prisma/client": "^4.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "commander": "^9.4.1",
     "dotenv": "^16.0.1",
     "envalid": "^7.3.1",
     "winston": "^3.8.1",
