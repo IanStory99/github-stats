@@ -1,3 +1,4 @@
+import { OrganizationEntity, UserStatisticsEntity } from "@/domain/entities";
 import {
   CSVFormatter,
   AverageCommentLengthStatisticsEntity,
@@ -7,7 +8,7 @@ import {
   ReviewedPRCountStatisticsEntity,
 } from "@/domain/entities";
 import {
-  UserInputDto
+  OrganizationInputDto
 } from "@/domain/dtos";
 import {
   OrganizationServiceInterface,
@@ -15,7 +16,7 @@ import {
   FormattingServiceInterface
 } from "@/domain/interfaces/services";
 
-class GetUserStatsUseCase {
+class GetOrganizationStatsUseCase {
   private organizationService: OrganizationServiceInterface;
   private userStatisticsService: UserStatisticsServiceInterface;
   private formattingService: FormattingServiceInterface;
@@ -38,23 +39,24 @@ class GetUserStatsUseCase {
     );
   }
 
-  execute(userInputDto: UserInputDto) {
-    const organizations = this.organizationService.getUserOrganizations(
-      userInputDto.username,
-      userInputDto.startDate,
-      userInputDto.endDate
+  execute(organizationInputDto: OrganizationInputDto) {
+    const organization = this.organizationService.getOrganization(
+      organizationInputDto.name,
+      organizationInputDto.startDate,
+      organizationInputDto.endDate
     );
-    const userStatistics = this.userStatisticsService.getUserOrganizationsStatistics(
-      userInputDto.username,
-      organizations
+    const organizationUsersStatistics = this.userStatisticsService.getOrganizationUsersStatistics(
+      organization
     );
-    const formattedStatistics = this.formattingService.format(
-      userStatistics.toJSON()
-    );
+    const statsJSON = this.buildStatsJSON(organization, organizationUsersStatistics);
+    const formattedStatistics = this.formattingService.format(statsJSON);
 
     return formattedStatistics;
   }
 
+  private buildStatsJSON(organization: OrganizationEntity, organizationUsersStatistics: UserStatisticsEntity[]): JSON {
+    // ...
+  }
 }
 
-export default GetUserStatsUseCase;
+export default GetOrganizationStatsUseCase;

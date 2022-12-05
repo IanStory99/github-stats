@@ -1,5 +1,6 @@
-import GetUserStatsUseCase from "@/application/use-cases/get-user-stats.use-case";
 import { OrganizationService, UserStatisticsService, FormattingService } from "@/application/services";
+import { GetUserStatsUseCase } from "@/application/use-cases";
+import { UserInputDto } from "@/domain/dtos";
 
 class UserStatsController {
   private useCase: GetUserStatsUseCase;
@@ -12,8 +13,12 @@ class UserStatsController {
     );
   }
 
-  getUserStats(username: string) {
-    this.useCase.execute(username);
+  execute(username: string, startDate: Date, endDate: Date) {
+    const userInputDto = new UserInputDto();
+    userInputDto.username = username;
+    userInputDto.startDate = startDate;
+    userInputDto.endDate = endDate;
+    return this.useCase.execute(userInputDto);
   }
 
 }

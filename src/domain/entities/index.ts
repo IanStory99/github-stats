@@ -11,3 +11,5 @@ export { default as CommitCountStatisticsEntity } from "./statistics/commit-coun
 export { default as CodeDiffCountStatisticsEntity } from "./statistics/code-diff-count-statistics.entity";
 export { default as ExecutedPRCountStatisticsEntity } from "./statistics/executed-pr-count-statistics.entity";
 export { default as ReviewedPRCountStatisticsEntity } from "./statistics/reviewed-pr-count-statistics.entity";
+export { default as UserStatisticsEntity } from "./user-statistics.entity";
+export { default as FormatEntity } from "./format.entity";

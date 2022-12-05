@@ -14,9 +14,9 @@ const createCLI = () => {
     .description(
       "Return all user data"
     )
-    .action(() => {
+    .action((argv) => {
       const controller = new UserStatsController();
-      return controller.getUserStats();
+      return controller.execute(argv[0], argv[1], argv[2]);
     });
 
   return program;
