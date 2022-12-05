@@ -15,7 +15,7 @@
     "prisma:migrate": "dotenv -e .env.${NODE_ENV}.local -- npx prisma migrate dev --preview-feature",
     "prisma:generate": "prisma generate",
     "prisma:makemigration": "prisma migrate diff --from-empty --to-schema-datamodel ./src/prisma/schema.prisma --script",
-    "cli": "node ./src/infrastructure/cli/index.js --"
+    "cli": "node ./src/infrastructure/cli/index.ts --"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
