@@ -1,6 +1,5 @@
-#!/usr/bin/env node
 const { Command } = require("commander");
-const { UserStatsController } = require("./infrastructure/controllers/user-stats.controller");
+const { UserStatsController } = require("../../infrastructure/controllers/user-stats.controller");
 
 const createCLI = () => {
   const program = new Command();
