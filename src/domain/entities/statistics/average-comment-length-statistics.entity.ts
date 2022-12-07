@@ -2,7 +2,7 @@ import { StatisticsInterface } from "@/domain/interfaces/entities";
 import { OrganizationEntity, ReviewCommentEntity } from "@/domain/entities";
 
 class AverageCommentLengthStatisticsEntity implements StatisticsInterface {
-  calculate(organization: OrganizationEntity): { [key: string]: number } {
+  calculate(organization: OrganizationEntity): Record<string, number> {
     const repositories = organization.getRepositories();
     const users = organization.getUsers();
     const statistics = {};
