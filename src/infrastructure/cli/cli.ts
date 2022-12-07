@@ -1,5 +1,5 @@
 const { Command } = require("commander");
-const { UserStatsController } = require("../../infrastructure/controllers/user-stats.controller");
+// const { UserStatsController } = require("../../infrastructure/controllers/user-stats.controller");
 
 const createCLI = () => {
   const program = new Command();
@@ -14,8 +14,9 @@ const createCLI = () => {
       "Return all user data"
     )
     .action((argv) => {
-      const controller = new UserStatsController();
-      return controller.execute(argv[0], argv[1], argv[2]);
+      // const controller = new UserStatsController();
+      // return controller.execute(argv[0], argv[1], argv[2]);
+      console.log(argv);
     });
 
   return program;

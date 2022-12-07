@@ -1,4 +1,4 @@
-import { RepositoryEntity, TeamEntity } from "@/domain/entities";
+import { RepositoryEntity, TeamEntity, UserEntity } from "@/domain/entities";
 
 class OrganizationEntity {
   private id: string;
@@ -32,6 +32,18 @@ class OrganizationEntity {
 
   public getTeams(): TeamEntity[] {
     return this.teams;
+  }
+
+  public getUsers(): Set<UserEntity> {
+    const teams = this.getTeams();
+    const users = new Set() as Set<UserEntity>;
+    for (const team of teams) {
+      const teamMembers = team.getMembers();
+      for (const member of teamMembers) {
+        users.add(member);
+      }
+    }
+    return users;
   }
 
   public setId(id: string): void {
