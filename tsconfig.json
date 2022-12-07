@@ -2,8 +2,13 @@
   "compileOnSave": false,
   "compilerOptions": {
     "target": "es2017",
-    "lib": ["es2017", "esnext.asynciterable"],
-    "typeRoots": ["node_modules/@types"],
+    "lib": [
+      "es2017",
+      "esnext.asynciterable"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -21,12 +26,27 @@
     "importHelpers": true,
     "baseUrl": "src",
     "paths": {
-      "@/*": ["*"],
-      "@/application/*": ["application/*"],
-      "@/domain/*": ["domain/*"],
-      "@/infrastructure/*": ["infrastructure/*"]
+      "@/*": [
+        "*"
+      ],
+      "@/application/*": [
+        "application/*"
+      ],
+      "@/domain/*": [
+        "domain/*"
+      ],
+      "@/infrastructure/*": [
+        "infrastructure/*"
+      ]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
-  "exclude": ["node_modules", "src/logs", "src/tests"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    ".env"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/logs"
+  ]
 }
