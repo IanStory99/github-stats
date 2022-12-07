@@ -8,6 +8,7 @@ class PullRequestEntity {
   private reviewComments: ReviewCommentEntity[];
   private createdAt: Date;
   private updatedAt: Date;
+  private mergedAt: Date;
 
   constructor(
     id: string,
@@ -16,7 +17,8 @@ class PullRequestEntity {
     commits: CommitEntity[],
     reviewComments: ReviewCommentEntity[],
     createdAt: Date,
-    updatedAt: Date
+    updatedAt: Date,
+    mergedAt: Date
   ) {
     this.id = id;
     this.repositoryId = repositoryId;
@@ -25,6 +27,7 @@ class PullRequestEntity {
     this.reviewComments = reviewComments;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.mergedAt = mergedAt;
   }
 
   public getId(): string {
@@ -55,6 +58,14 @@ class PullRequestEntity {
     return this.updatedAt;
   }
 
+  public getMergedAt(): Date {
+    return this.mergedAt;
+  }
+
+  public isExecuted(): boolean {
+    return this.mergedAt !== null;
+  }
+
   public setId(id: string): void {
     this.id = id;
   }
@@ -81,6 +92,10 @@ class PullRequestEntity {
 
   public setUpdatedAt(updatedAt: Date): void {
     this.updatedAt = updatedAt;
+  }
+
+  public setMergedAt(mergedAt: Date): void {
+    this.mergedAt = mergedAt;
   }
 }
 
