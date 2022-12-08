@@ -25,6 +25,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "commander": "^9.4.1",
+    "csv-tools": "^1.2.0",
     "dotenv": "^16.0.1",
     "envalid": "^7.3.1",
     "winston": "^3.8.1",
