@@ -1,5 +1,7 @@
+import { FormatEntity } from "@/domain/entities";
+
 interface FormatterInterface {
-  format(value: JSON);
+  format(value: any): FormatEntity;
 }
 
 export default FormatterInterface;
