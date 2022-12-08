@@ -17,25 +17,33 @@ describe("AverageCommentLengthStatisticsEntity", () => {
     ];
     const pullRequests = [
       {
+        getReviews: jest.fn(),
+      },
+      {
+        getReviews: jest.fn(),
+      },
+    ];
+    const reviews = [
+      {
         getReviewComments: jest.fn(),
       },
       {
         getReviewComments: jest.fn(),
       },
     ];
-    const comments = [
+    const reviewComments = [
       {
+        getLogin: jest.fn(),
         getText: jest.fn(),
-        getLogin: jest.fn()
       },
       {
+        getLogin: jest.fn(),
         getText: jest.fn(),
-        getLogin: jest.fn()
       },
       {
+        getLogin: jest.fn(),
         getText: jest.fn(),
-        getLogin: jest.fn()
-      }
+      },
     ];
     const users = [
       {
@@ -45,27 +53,30 @@ describe("AverageCommentLengthStatisticsEntity", () => {
         getId: jest.fn(),
       },
     ];
+    const expectedStatistics = {
+      user1: 1,
+      user2: 4,
+    };
 
     organization.getRepositories.mockReturnValue(repositories);
     organization.getUsers.mockReturnValue(users);
     repositories[0].getPullRequests.mockReturnValue(pullRequests);
     repositories[1].getPullRequests.mockReturnValue(pullRequests);
-    pullRequests[0].getReviewComments.mockReturnValue(comments);
-    pullRequests[1].getReviewComments.mockReturnValue(comments);
-    comments[0].getText.mockReturnValue("comment 1");
-    comments[1].getText.mockReturnValue("comment 2");
-    comments[2].getText.mockReturnValue("comment 3 - more length");
-    comments[0].getLogin.mockReturnValue("user 1");
-    comments[1].getLogin.mockReturnValue("user 2");
-    comments[2].getLogin.mockReturnValue("user 1");
-    users[0].getId.mockReturnValue("user 1");
-    users[1].getId.mockReturnValue("user 2");
+    pullRequests[0].getReviews.mockReturnValue(reviews);
+    pullRequests[1].getReviews.mockReturnValue(reviews);
+    reviews[0].getReviewComments.mockReturnValue(reviewComments);
+    reviews[1].getReviewComments.mockReturnValue(reviewComments);
+    reviewComments[0].getLogin.mockReturnValue("user1");
+    reviewComments[0].getText.mockReturnValue("a");
+    reviewComments[1].getLogin.mockReturnValue("user2");
+    reviewComments[1].getText.mockReturnValue("aa");
+    reviewComments[2].getLogin.mockReturnValue("user2");
+    reviewComments[2].getText.mockReturnValue("aaaaaa");
+    users[0].getId.mockReturnValue("user1");
+    users[1].getId.mockReturnValue("user2");
 
-    const result = statistics.calculate(organization as unknown as OrganizationEntity);
+    const actualStatistics = statistics.calculate(organization as unknown as OrganizationEntity);
 
-    expect(result).toEqual({
-      "user 1": 16,
-      "user 2": 9,
-    });
+    expect(actualStatistics).toEqual(expectedStatistics);
   });
 });

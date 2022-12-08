@@ -1,11 +1,11 @@
-import { ReviewCommentEntity, CommitEntity } from "@/domain/entities";
+import { ReviewEntity, CommitEntity } from "@/domain/entities";
 
 class PullRequestEntity {
   private id: string;
   private repositoryId: string;
   private userId: string;
   private commits: CommitEntity[];
-  private reviewComments: ReviewCommentEntity[];
+  private reviews: ReviewEntity[];
   private createdAt: Date;
   private updatedAt: Date;
   private mergedAt: Date;
@@ -15,7 +15,7 @@ class PullRequestEntity {
     repositoryId: string,
     userId: string,
     commits: CommitEntity[],
-    reviewComments: ReviewCommentEntity[],
+    reviews: ReviewEntity[],
     createdAt: Date,
     updatedAt: Date,
     mergedAt: Date
@@ -24,7 +24,7 @@ class PullRequestEntity {
     this.repositoryId = repositoryId;
     this.userId = userId;
     this.commits = commits;
-    this.reviewComments = reviewComments;
+    this.reviews = reviews;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.mergedAt = mergedAt;
@@ -46,8 +46,8 @@ class PullRequestEntity {
     return this.commits;
   }
 
-  public getReviewComments(): ReviewCommentEntity[] {
-    return this.reviewComments;
+  public getReviews(): ReviewEntity[] {
+    return this.reviews;
   }
 
   public getCreatedAt(): Date {
@@ -82,8 +82,8 @@ class PullRequestEntity {
     this.commits = commits;
   }
 
-  public setReviewComments(reviewComments: ReviewCommentEntity[]): void {
-    this.reviewComments = reviewComments;
+  public setReviews(reviews: ReviewEntity[]): void {
+    this.reviews = reviews;
   }
 
   public setCreatedAt(createdAt: Date): void {

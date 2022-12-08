@@ -12,10 +12,13 @@ class AverageCommentLengthStatisticsEntity implements StatisticsInterface {
       for (const repository of repositories) {
         const repositoryPullRequests = repository.getPullRequests();
         for (const pullRequest of repositoryPullRequests) {
-          const pullRequestComments = pullRequest.getReviewComments();
-          for (const comment of pullRequestComments) {
-            if (comment.getLogin() === user.getId()) {
-              comments.push(comment);
+          const pullRequestReviews = pullRequest.getReviews();
+          for (const review of pullRequestReviews) {
+            const reviewComments = review.getReviewComments();
+            for (const comment of reviewComments) {
+              if (comment.getLogin() === user.getId()) {
+                comments.push(comment);
+              }
             }
           }
         }
