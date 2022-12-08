@@ -5,7 +5,7 @@ import StatisticsInterface from '@/domain/interfaces/entities/statistics.interfa
 interface UserStatisticsServiceInterface {
   new(statistics: StatisticsInterface[]);
   getOrganizationUsersStatistics(organization: OrganizationEntity): UserStatisticsEntity[];
-  getUserOrganizationsStatistics(username: string, organizations: OrganizationEntity[]): UserStatisticsEntity;
+  // getUserOrganizationsStatistics(username: string, organizations: OrganizationEntity[]): UserStatisticsEntity;
 }
 
 export default UserStatisticsServiceInterface;

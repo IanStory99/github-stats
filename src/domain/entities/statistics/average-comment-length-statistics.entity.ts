@@ -2,6 +2,12 @@ import { StatisticsInterface } from "@/domain/interfaces/entities";
 import { OrganizationEntity, ReviewCommentEntity } from "@/domain/entities";
 
 class AverageCommentLengthStatisticsEntity implements StatisticsInterface {
+  private code = "average-comment-length";
+
+  getStatisticCode(): string {
+    return this.code;
+  }
+
   calculate(organization: OrganizationEntity): Record<string, number> {
     const repositories = organization.getRepositories();
     const users = organization.getUsers();

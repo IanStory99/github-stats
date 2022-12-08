@@ -2,7 +2,13 @@ import { StatisticsInterface } from "@/domain/interfaces/entities";
 import { OrganizationEntity } from "@/domain/entities";
 
 class ReviewedPRCountStatisticsEntity implements StatisticsInterface {
-  calculate(organization: OrganizationEntity) {
+  private code = "reviewed-pr-count";
+
+  getStatisticCode(): string {
+    return this.code;
+  }
+
+  calculate(organization: OrganizationEntity): Record<string, number> {
     const repositories = organization.getRepositories();
     const users = organization.getUsers();
     const statistics = {};
