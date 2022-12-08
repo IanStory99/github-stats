@@ -2,6 +2,12 @@ import { StatisticsInterface } from "@/domain/interfaces/entities";
 import { OrganizationEntity } from "@/domain/entities";
 
 class CodeDiffCountStatisticsEntity implements StatisticsInterface {
+  private code = "code-diff-count";
+
+  getStatisticCode(): string {
+    return this.code;
+  }
+
   calculate(organization: OrganizationEntity): Record<string, number> {
     const repositories = organization.getRepositories();
     const users = organization.getUsers();

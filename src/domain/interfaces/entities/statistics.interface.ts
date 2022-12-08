@@ -1,7 +1,8 @@
 import { OrganizationEntity } from "@/domain/entities";
 
 interface StatisticsInterface {
-  calculate(organization: OrganizationEntity);
+  getStatisticCode(): string;
+  calculate(organization: OrganizationEntity): Record<string, number>;
 }
 
 export default StatisticsInterface;
