@@ -46,6 +46,16 @@ class OrganizationEntity {
     return users;
   }
 
+  public findUserById(id: string): UserEntity | undefined {
+    const users = this.getUsers();
+    for (const user of users) {
+      if (user.getId() === id) {
+        return user;
+      }
+    }
+    return undefined;
+  }
+
   public setId(id: string): void {
     this.id = id;
   }

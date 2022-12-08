@@ -4,6 +4,7 @@ export { default as RepositoryEntity } from "./repository.entity";
 export { default as TeamEntity } from "./team.entity";
 export { default as UserEntity } from "./user.entity";
 export { default as CommitEntity } from "./commit.entity";
+export { default as ReviewEntity } from "./review.entity";
 export { default as ReviewCommentEntity } from "./review-comment.entity";
 export { default as CSVFormatter } from "./formatters/csv-formatter.entity";
 export { default as AverageCommentLengthStatisticsEntity } from "./statistics/average-comment-length-statistics.entity";

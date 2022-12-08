@@ -1,12 +1,12 @@
 class ReviewCommentEntity {
   private id: string;
-  private pullRequestId: string;
+  private reviewId: string;
   private login: string;
   private text: string;
 
-  constructor(id: string, pullRequestId: string, login: string, text: string) {
+  constructor(id: string, reviewId: string, login: string, text: string) {
     this.id = id;
-    this.pullRequestId = pullRequestId;
+    this.reviewId = reviewId;
     this.login = login;
     this.text = text;
   }
@@ -15,8 +15,8 @@ class ReviewCommentEntity {
     return this.id;
   }
 
-  public getPullRequestId(): string {
-    return this.pullRequestId;
+  public getReviewId(): string {
+    return this.reviewId;
   }
 
   public getLogin(): string {
@@ -31,8 +31,8 @@ class ReviewCommentEntity {
     this.id = id;
   }
 
-  public setPullRequestId(pullRequestId: string): void {
-    this.pullRequestId = pullRequestId;
+  public setReviewId(reviewId: string): void {
+    this.reviewId = reviewId;
   }
 
   public setLogin(login: string): void {
