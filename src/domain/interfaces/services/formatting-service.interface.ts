@@ -3,7 +3,7 @@ import { FormatEntity } from "@/domain/entities";
 
 interface FormattingServiceInterface {
   new(formatter: FormatterInterface);
-  format(value: JSON): FormatEntity;
+  format(value: any): FormatEntity;
 }
 
 export default FormattingServiceInterface;

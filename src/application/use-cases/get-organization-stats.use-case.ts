@@ -54,8 +54,23 @@ class GetOrganizationStatsUseCase {
     return formattedStatistics;
   }
 
-  private buildStatsJSON(organization: OrganizationEntity, organizationUsersStatistics: UserStatisticsEntity[]): JSON {
-    // ...
+  private buildStatsJSON(organization: OrganizationEntity, organizationUsersStatistics: UserStatisticsEntity[]): object {
+    const organizationName = organization.getName();
+    const statsJSON = {};
+    for (const team of organization.getTeams()) {
+      const teamName = team.getName();
+      statsJSON[organizationName][teamName] = {};
+      for (const user of team.getMembers()) {
+        const userName = user.getLogin();
+        statsJSON[organizationName][teamName][userName] = {};
+        for (const userStatistics of organizationUsersStatistics) {
+          if (userStatistics.getUserId() === user.getId()) {
+            statsJSON[organizationName][teamName][userName] = userStatistics.getStatistics();
+          }
+        }
+      }
+    }
+    return statsJSON;
   }
 }
 
