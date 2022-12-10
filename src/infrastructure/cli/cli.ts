@@ -1,5 +1,6 @@
+import OrganizationPOCController from "@/infrastructure/controllers/organization-poc.controller";
+
 const { Command } = require("commander");
-// const { UserStatsController } = require("../../infrastructure/controllers/user-stats.controller");
 
 const createCLI = () => {
   const program = new Command();
@@ -9,14 +10,14 @@ const createCLI = () => {
 
 
   program
-    .command("user-stats")
+    .command("organization-test")
     .description(
       "Return all user data"
     )
-    .action((argv) => {
-      // const controller = new UserStatsController();
-      // return controller.execute(argv[0], argv[1], argv[2]);
-      console.log(argv);
+    .action(async () => {
+      const organizationController = new OrganizationPOCController();
+      const result = await organizationController.execute(process.env.ORGANIZATION_ID);
+      console.log(result);
     });
 
   return program;
