@@ -1,9 +1,7 @@
 import OrganizationEntity from '@/domain/entities/organization.entity';
 
 interface OrganizationServiceInterface {
-  new();
-  getOrganization(organizationId: string, startDate: Date, endDate: Date): OrganizationEntity;
-  getUserOrganizations(username: string, startDate: Date, endDate: Date): OrganizationEntity[];
+  getOrganizationById(organizationId: string): Promise<OrganizationEntity>;
 }
 
 export default OrganizationServiceInterface;

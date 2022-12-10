@@ -8,20 +8,21 @@
     "clean": "rimraf ./dist/ ./exec/",
     "build": "npm run clean && tsc",
     "bundle": "npm run build && pkg . --out-dir ./exec/",
-    "test:unit": "jest  -c jest.config.unit.js --forceExit --detectOpenHandles",
+    "test:unit": "jest  -c jest.config.unit.js --silent --coverage --forceExit --detectOpenHandles",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix",
     "prisma:init": "prisma init",
     "prisma:migrate": "dotenv -e .env.${NODE_ENV}.local -- npx prisma migrate dev --preview-feature",
     "prisma:generate": "prisma generate",
     "prisma:makemigration": "prisma migrate diff --from-empty --to-schema-datamodel ./src/prisma/schema.prisma --script",
-    "cli": "node ./src/infrastructure/cli/index.ts --"
+    "cli": "ts-node -r tsconfig-paths/register ./src/infrastructure/cli/index.ts --"
   },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "^4.1.0",
+    "axios": "^1.2.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "commander": "^9.4.1",
@@ -45,7 +46,7 @@
     "ts-jest": "^28.0.7",
     "ts-node": "^10.9.1",
     "tsc-alias": "^1.7.0",
-    "tsconfig-paths": "^4.0.0",
+    "tsconfig-paths": "^4.1.1",
     "typescript": "^4.7.4"
   }
 }
