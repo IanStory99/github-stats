@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FormattingServiceInterface } from "@/domain/interfaces/services";
 import { FormatterInterface } from "@/domain/interfaces/entities";
+import { FormatEntity } from "@/domain/entities";
 
+// @ts-ignore
 class FormattingService implements FormattingServiceInterface {
   private formatter: FormatterInterface;
 
@@ -9,9 +11,8 @@ class FormattingService implements FormattingServiceInterface {
     this.formatter = formatter;
   }
 
-  // @ts-ignore
-  format(value: JSON) {
-    // ...
+  format(value: any): FormatEntity {
+    return this.formatter.format(value);
   }
 }
 
