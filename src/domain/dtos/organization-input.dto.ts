@@ -1,14 +1,14 @@
-import { IsString, IsDate } from "class-validator";
+import { IsString, IsDate, IsOptional } from "class-validator";
 
 class OrganizationInputDto {
-  @IsString()
+  @IsString({ message: "Organization name must be a string" })
   name: string;
 
-  @IsDate()
-  startDate: Date;
+  @IsOptional() @IsDate({ message: "Start date must be a valid date" })
+  startDate: Date | null;
 
-  @IsDate()
-  endDate: Date;
+  @IsOptional() @IsDate({ message: "End date must be a valid date" })
+  endDate: Date | null;
 }
 
 export default OrganizationInputDto;

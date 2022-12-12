@@ -11,7 +11,6 @@ import {
 
 class MockOrganizationService {
   public getOrganization(organizationName: string, startDate: Date, endDate: Date): OrganizationEntity {
-    console.log(startDate, endDate);
     return new OrganizationEntity(
       organizationName,
       "Microsoft",
