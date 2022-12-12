@@ -1,7 +1,6 @@
 import OrganizationPOCController from "@/infrastructure/controllers/organization-poc.controller";
 import OrganizationStatsController from "@/infrastructure/controllers/organization-stats.controller";
-
-const { Command } = require("commander");
+import { Command } from "commander";
 
 const createCLI = () => {
   const program = new Command();
@@ -23,13 +22,21 @@ const createCLI = () => {
 
   program
     .command("organization")
-    .description(
-      "Return organization statistics"
-    )
-    .action(() => {
+    .requiredOption("-n, --name <name>", "Organization name")
+    .option("-s, --startDate <startDate>", "Start date in format YYYY-MM-DD")
+    .option("-e, --endDate <endDate>", "End date in format YYYY-MM-DD")
+    .description("Return organization statistics")
+    .action(async (options) => {
       const organizationController = new OrganizationStatsController();
-      organizationController.execute("microsoft", new Date("2020-01-01"), new Date("2020-12-31"));
-      console.log("Organization stats saved in file 'output.csv'");
+      const startDateObject = options.startDate ? new Date(options.startDate) : null;
+      const endDateObject = options.endDate ? new Date(options.endDate) : null;
+      try {
+        console.log(`Calculating organization stats for ${options.name}...`);
+        await organizationController.execute(options.name, startDateObject, endDateObject);
+        console.log("Organization stats saved in file 'output.csv'");
+      } catch (error) {
+        console.error(error.message);
+      }
     });
 
   return program;
