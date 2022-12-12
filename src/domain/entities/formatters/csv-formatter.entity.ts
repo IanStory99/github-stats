@@ -13,11 +13,7 @@ class CSVFormatter implements FormatterInterface {
 
   private saveCSVStringToFile(csvString: string, fileName: string) {
     const fs = require('fs');
-    fs
-      .writeFileSync(fileName, csvString)
-      .then(() => {
-        console.log('File saved successfully!');
-      });
+    fs.writeFileSync(fileName, csvString);
   }
 }
 

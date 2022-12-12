@@ -7,11 +7,12 @@ class ReviewEntity {
   private state: string;
   private reviewComments: ReviewCommentEntity[];
 
-  constructor(id: string, pullRequestId: string, authorId: string, state: string) {
+  constructor(id: string, pullRequestId: string, authorId: string, state: string, reviewComments: ReviewCommentEntity[]) {
     this.id = id;
     this.pullRequestId = pullRequestId;
     this.authorId = authorId;
     this.state = state;
+    this.reviewComments = reviewComments;
   }
 
   public getId(): string {
