@@ -41,7 +41,7 @@ class AverageCommentLengthStatisticsEntity implements StatisticsInterface {
     for (const comment of comments) {
       totalCommentLength += comment.getText().length;
     }
-    return totalCommentLength / comments.length;
+    return (totalCommentLength / comments.length) || 0;
   }
 }
 

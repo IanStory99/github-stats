@@ -2,7 +2,7 @@ import { StatisticsInterface } from "@/domain/interfaces/entities";
 import { OrganizationEntity } from "@/domain/entities";
 
 class ReviewedPRCountStatisticsEntity implements StatisticsInterface {
-  private code = "reviewed-pr-count";
+  private code = "reviewed-pr-count-percentage";
 
   getStatisticCode(): string {
     return this.code;
@@ -45,7 +45,7 @@ class ReviewedPRCountStatisticsEntity implements StatisticsInterface {
     const percentageStatistics = {};
     for (const userId in statistics) {
       const reviewedPRCount = statistics[userId];
-      const percentage = reviewedPRCount.insideTeam / (reviewedPRCount.insideTeam + reviewedPRCount.outsideTeam);
+      const percentage = (reviewedPRCount.insideTeam / (reviewedPRCount.insideTeam + reviewedPRCount.outsideTeam)) || 0;
       percentageStatistics[userId] = percentage.toFixed(2);
     }
     return percentageStatistics;
