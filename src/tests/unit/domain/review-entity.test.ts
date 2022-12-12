@@ -7,7 +7,8 @@ describe("ReviewEntity", () => {
         "id",
         "pullRequestId",
         "userId",
-        "APPROVED"
+        "APPROVED",
+        []
       );
 
       expect(review.isReviewed()).toBe(true);
@@ -18,7 +19,8 @@ describe("ReviewEntity", () => {
         "id",
         "pullRequestId",
         "userId",
-        "CHANGES_REQUESTED"
+        "CHANGES_REQUESTED",
+        []
       );
 
       expect(review.isReviewed()).toBe(true);
@@ -29,7 +31,8 @@ describe("ReviewEntity", () => {
         "id",
         "pullRequestId",
         "userId",
-        "COMMENTED"
+        "COMMENTED",
+        []
       );
 
       expect(review.isReviewed()).toBe(false);
