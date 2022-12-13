@@ -11,6 +11,14 @@ class ReviewCommentEntity {
     this.text = text;
   }
 
+  public getLogin(): string {
+    return this.login;
+  }
+
+  public getText(): string {
+    return this.text;
+  }
+
 }
 
 export default ReviewCommentEntity;
