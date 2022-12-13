@@ -19,11 +19,7 @@ class UserEntity {
   public getLogin(): string {
     return this.login;
   }
-
-  public getRepositories(): RepositoryEntity[] {
-    return this.repositories;
-  }
-
+  
   public getTeamId(): string {
     return this.teamId;
   }

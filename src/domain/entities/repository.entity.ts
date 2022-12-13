@@ -21,22 +21,6 @@ class RepositoryEntity {
     this.pullRequests = pullRequests;
   }
 
-  public getId(): string {
-    return this.id;
-  }
-
-  public getOwnerId(): string {
-    return this.ownerId;
-  }
-
-  public getFullname(): string {
-    return this.fullname;
-  }
-
-  public getName(): string {
-    return this.name;
-  }
-
   public getPullRequests(): PullRequestEntity[] {
     return this.pullRequests;
   }
