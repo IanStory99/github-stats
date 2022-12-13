@@ -19,13 +19,6 @@ class UserStatisticsEntity {
     this.statistics[statisticCode] = statisticValue;
   }
 
-  setUserId(userId: string): void {
-    this.userId = userId;
-  }
-
-  setStatistics(statistics: Record<string, number>): void {
-    this.statistics = statistics;
-  }
 }
 
 export default UserStatisticsEntity;

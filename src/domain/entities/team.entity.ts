@@ -21,45 +21,14 @@ class TeamEntity {
     this.members = members;
   }
 
-  public getId(): string {
-    return this.id;
-  }
-
-  public getOrganizationId(): string {
-    return this.organizationId;
-  }
-
   public getName(): string {
     return this.name;
   }
-
-  public getSlug(): string {
-    return this.slug;
-  }
-
+  
   public getMembers(): UserEntity[] {
     return this.members;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setOrganizationId(organizationId: string): void {
-    this.organizationId = organizationId;
-  }
-
-  public setName(name: string): void {
-    this.name = name;
-  }
-
-  public setSlug(slug: string): void {
-    this.slug = slug;
-  }
-
-  public setMembers(members: UserEntity[]): void {
-    this.members = members;
-  }
 }
 
 export default TeamEntity;

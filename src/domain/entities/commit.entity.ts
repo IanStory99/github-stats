@@ -19,49 +19,14 @@ class CommitEntity {
     this.deletions = deletions;
   }
 
-  public getId(): string {
-    return this.id;
-  }
-
   public getAuthorLogin(): string {
     return this.authorLogin;
-  }
-
-  public getPullRequestId(): string {
-    return this.pullRequestId;
-  }
-
-  public getAdditions(): number {
-    return this.additions;
-  }
-
-  public getDeletions(): number {
-    return this.deletions;
   }
 
   public getCodeDiffCount(): number {
     return this.additions + this.deletions;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setAuthorLogin(authorLogin: string): void {
-    this.authorLogin = authorLogin;
-  }
-
-  public setPullRequestId(pullRequestId: string): void {
-    this.pullRequestId = pullRequestId;
-  }
-
-  public setAdditions(additions: number): void {
-    this.additions = additions;
-  }
-
-  public setDeletions(deletions: number): void {
-    this.deletions = deletions;
-  }
 }
 
 export default CommitEntity;
