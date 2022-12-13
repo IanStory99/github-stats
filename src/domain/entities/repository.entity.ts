@@ -41,25 +41,6 @@ class RepositoryEntity {
     return this.pullRequests;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setOwnerId(ownerId: string): void {
-    this.ownerId = ownerId;
-  }
-
-  public setFullname(fullname: string): void {
-    this.fullname = fullname;
-  }
-
-  public setName(name: string): void {
-    this.name = name;
-  }
-
-  public setPullRequests(pullRequests: PullRequestEntity[]): void {
-    this.pullRequests = pullRequests;
-  }
 }
 
 export default RepositoryEntity;

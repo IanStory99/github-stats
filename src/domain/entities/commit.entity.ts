@@ -43,25 +43,6 @@ class CommitEntity {
     return this.additions + this.deletions;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setAuthorLogin(authorLogin: string): void {
-    this.authorLogin = authorLogin;
-  }
-
-  public setPullRequestId(pullRequestId: string): void {
-    this.pullRequestId = pullRequestId;
-  }
-
-  public setAdditions(additions: number): void {
-    this.additions = additions;
-  }
-
-  public setDeletions(deletions: number): void {
-    this.deletions = deletions;
-  }
 }
 
 export default CommitEntity;

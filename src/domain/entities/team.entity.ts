@@ -41,25 +41,6 @@ class TeamEntity {
     return this.members;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setOrganizationId(organizationId: string): void {
-    this.organizationId = organizationId;
-  }
-
-  public setName(name: string): void {
-    this.name = name;
-  }
-
-  public setSlug(slug: string): void {
-    this.slug = slug;
-  }
-
-  public setMembers(members: UserEntity[]): void {
-    this.members = members;
-  }
 }
 
 export default TeamEntity;

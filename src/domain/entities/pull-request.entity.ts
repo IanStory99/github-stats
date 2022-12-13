@@ -66,37 +66,6 @@ class PullRequestEntity {
     return this.mergedAt !== null;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setRepositoryId(repositoryId: string): void {
-    this.repositoryId = repositoryId;
-  }
-
-  public setUserId(userId: string): void {
-    this.userId = userId;
-  }
-
-  public setCommits(commits: CommitEntity[]): void {
-    this.commits = commits;
-  }
-
-  public setReviews(reviews: ReviewEntity[]): void {
-    this.reviews = reviews;
-  }
-
-  public setCreatedAt(createdAt: Date): void {
-    this.createdAt = createdAt;
-  }
-
-  public setUpdatedAt(updatedAt: Date): void {
-    this.updatedAt = updatedAt;
-  }
-
-  public setMergedAt(mergedAt: Date): void {
-    this.mergedAt = mergedAt;
-  }
 }
 
 export default PullRequestEntity;

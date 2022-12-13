@@ -56,21 +56,6 @@ class OrganizationEntity {
     return undefined;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setName(name: string): void {
-    this.name = name;
-  }
-
-  public setRepositories(repositories: RepositoryEntity[]): void {
-    this.repositories = repositories;
-  }
-
-  public setTeams(teams: TeamEntity[]): void {
-    this.teams = teams;
-  }
 }
 
 export default OrganizationEntity;

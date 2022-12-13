@@ -28,21 +28,6 @@ class UserEntity {
     return this.teamId;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setLogin(login: string): void {
-    this.login = login;
-  }
-
-  public setRepositories(repositories: RepositoryEntity[]): void {
-    this.repositories = repositories;
-  }
-
-  public setTeamId(teamId: string): void {
-    this.teamId = teamId;
-  }
 }
 
 export default UserEntity;

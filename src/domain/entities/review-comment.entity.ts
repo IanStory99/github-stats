@@ -27,21 +27,6 @@ class ReviewCommentEntity {
     return this.text;
   }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
-
-  public setReviewId(reviewId: string): void {
-    this.reviewId = reviewId;
-  }
-
-  public setLogin(login: string): void {
-    this.login = login;
-  }
-
-  public setText(text: string): void {
-    this.text = text;
-  }
 }
 
 export default ReviewCommentEntity;
