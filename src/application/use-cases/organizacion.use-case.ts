@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { OrganizationServiceInterface } from "@/domain/interfaces/services";
 import { OrganizationService } from "@/application/services";
 
@@ -6,6 +7,7 @@ class OrganizationPOCUseCase {
     private organizationService: OrganizationServiceInterface;
 
     constructor() {
+        // @ts-ignore
         this.organizationService = new OrganizationService();
     }
 

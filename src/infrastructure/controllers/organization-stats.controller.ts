@@ -1,24 +1,39 @@
-import { OrganizationService, UserStatisticsService, FormattingService } from "@/application/services";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {
+  // OrganizationService, // TODO: Uncomment this line
+  MockOrganizationService as OrganizationService,
+  UserStatisticsService,
+  FormattingService
+} from "@/application/services";
+import { validateOrReject } from "class-validator";
 import { GetOrganizationStatsUseCase } from "@/application/use-cases";
 import { OrganizationInputDto } from "@/domain/dtos";
+import { ErrorException } from "@/domain/exceptions";
 
 class OrganizationStatsController {
   private useCase: GetOrganizationStatsUseCase;
 
-  constructor(useCase: typeof GetOrganizationStatsUseCase) {
-    this.useCase = new useCase(
+  constructor() {
+    this.useCase = new GetOrganizationStatsUseCase(
+      // @ts-ignore
       OrganizationService,
       UserStatisticsService,
       FormattingService
     );
   }
 
-  execute(organizationName: string, startDate: Date, endDate: Date) {
+  async execute(organizationName: string, startDate: Date, endDate: Date) {
     const organizationInputDto = new OrganizationInputDto();
     organizationInputDto.name = organizationName;
     organizationInputDto.startDate = startDate;
     organizationInputDto.endDate = endDate;
-    return this.useCase.execute(organizationInputDto);
+    await validateOrReject(organizationInputDto)
+      .then(() => {
+        this.useCase.execute(organizationInputDto);
+      })
+      .catch((errors) => {
+        throw new ErrorException(400, Object.values(errors[0].constraints).join("; "));
+      });
   }
 
 }
