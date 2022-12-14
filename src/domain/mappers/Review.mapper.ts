@@ -8,6 +8,7 @@ class ReviewMap implements Mapper<ReviewEntity> {
             raw.author,
             raw.pullRequestId,
             raw.state,
+            [],
         );
     }
 }
