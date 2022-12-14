@@ -3,20 +3,20 @@ import { PullRequestEntity } from "@/domain/entities";
 class RepositoryEntity {
   private id: string;
   private ownerId: string;
-  private fullname: string;
+  private url: string;
   private name: string;
   private pullRequests: PullRequestEntity[];
 
   constructor(
     id: string,
     ownerId: string,
-    fullname: string,
+    url: string,
     name: string,
     pullRequests: PullRequestEntity[]
   ) {
     this.id = id;
     this.ownerId = ownerId;
-    this.fullname = fullname;
+    this.url = url;
     this.name = name;
     this.pullRequests = pullRequests;
   }
@@ -29,8 +29,8 @@ class RepositoryEntity {
     return this.ownerId;
   }
 
-  public getFullname(): string {
-    return this.fullname;
+  public getUrl(): string {
+    return this.url;
   }
 
   public getName(): string {
@@ -49,8 +49,8 @@ class RepositoryEntity {
     this.ownerId = ownerId;
   }
 
-  public setFullname(fullname: string): void {
-    this.fullname = fullname;
+  public setUrl(url: string): void {
+    this.url = url;
   }
 
   public setName(name: string): void {
