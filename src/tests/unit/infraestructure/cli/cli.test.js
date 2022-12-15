@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 const createCLI = require("../../../../infrastructure/cli/cli");
 
 describe("CLI Testing", () => {
@@ -8,7 +9,7 @@ describe("CLI Testing", () => {
     mockExit = jest.spyOn(process, "exit").mockImplementation();
     mockStdout = jest
       .spyOn(process.stdout, "write")
-      .mockImplementation(() => {});
+      .mockImplementation(() => { });
   });
   afterEach(() => {
     mockExit.mockClear();

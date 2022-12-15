@@ -1,5 +1,5 @@
-import { ReviewCommentEntity } from "../entities";
-import Mapper from "../interfaces/mappers/Mapper.interface";
+import { ReviewCommentEntity } from "../../domain/entities";
+import Mapper from "../../domain/interfaces/mappers/Mapper.interface";
 
 class ReviewCommentMap implements Mapper<ReviewCommentEntity> {
     public toDomain(raw: any): ReviewCommentEntity {

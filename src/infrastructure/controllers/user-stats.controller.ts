@@ -1,6 +1,6 @@
-import { OrganizationService, UserStatisticsService, FormattingService } from "@/application/services";
+import { OrganizationService, UserStatisticsService, FormattingService } from "@/domain/services";
 import { GetUserStatsUseCase } from "@/application/use-cases";
-import { UserInputDto } from "@/domain/dtos";
+import { UserInputDto } from "@/application/dtos";
 
 class UserStatsController {
   private useCase: GetUserStatsUseCase;
