@@ -27,6 +27,10 @@ class ReviewEntity {
     return this.state === "APPROVED" || this.state === "CHANGES_REQUESTED";
   }
 
+  public setReviewComments(reviewComments: ReviewCommentEntity[]) : void {
+    this.reviewComments = reviewComments;
+  }
+
 }
 
 export default ReviewEntity;

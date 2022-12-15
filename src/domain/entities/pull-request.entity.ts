@@ -42,6 +42,14 @@ class PullRequestEntity {
     return this.reviews;
   }
 
+  public setCommits(commits: CommitEntity[]): void {
+    this.commits = commits;
+  }
+
+  public setReviews(commits: ReviewEntity[]): void {
+    this.reviews= commits;
+  }
+
   public isExecuted(): boolean {
     return this.mergedAt !== null;
   }
