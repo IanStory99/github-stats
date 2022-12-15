@@ -1,15 +1,7 @@
 import { OrganizationEntity, UserStatisticsEntity } from "@/domain/entities";
 import {
-  CSVFormatter,
-  AverageCommentLengthStatisticsEntity,
-  CommitCountStatisticsEntity,
-  CodeDiffCountStatisticsEntity,
-  ExecutedPRCountStatisticsEntity,
-  ReviewedPRCountStatisticsEntity,
-} from "@/domain/entities";
-import {
   OrganizationInputDto
-} from "@/domain/dtos";
+} from "@/application/dtos";
 import {
   OrganizationServiceInterface,
   UserStatisticsServiceInterface,
@@ -26,24 +18,16 @@ class GetOrganizationStatsUseCase {
     userStatisticsService: UserStatisticsServiceInterface,
     formattingService: FormattingServiceInterface
   ) {
-    this.organizationService = new organizationService();
-    this.userStatisticsService = new userStatisticsService([
-      new AverageCommentLengthStatisticsEntity(),
-      new CommitCountStatisticsEntity(),
-      new CodeDiffCountStatisticsEntity(),
-      new ExecutedPRCountStatisticsEntity(),
-      new ReviewedPRCountStatisticsEntity()
-    ]);
-    this.formattingService = new formattingService(
-      new CSVFormatter()
-    );
+    this.organizationService = organizationService;
+    this.userStatisticsService = userStatisticsService;
+    this.formattingService = formattingService;
   }
 
-  execute(organizationInputDto: OrganizationInputDto) {
-    const organization = this.organizationService.getOrganization(
-      organizationInputDto.name,
-      organizationInputDto.startDate,
-      organizationInputDto.endDate
+  async execute(organizationInputDto: OrganizationInputDto) {
+    const organization = await this.organizationService.getOrganizationById(
+      organizationInputDto.name
+      // organizationInputDto.startDate,
+      // organizationInputDto.endDate
     );
     const organizationUsersStatistics = this.userStatisticsService.getOrganizationUsersStatistics(
       organization

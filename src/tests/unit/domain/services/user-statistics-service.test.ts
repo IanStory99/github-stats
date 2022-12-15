@@ -1,4 +1,4 @@
-import { UserStatisticsService } from "@/application/services";
+import { UserStatisticsService } from "@/domain/services";
 
 describe("UserStatisticsService", () => {
   describe("getOrganizationUsersStatistics", () => {

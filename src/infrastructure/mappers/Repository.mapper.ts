@@ -1,5 +1,5 @@
-import { RepositoryEntity } from "../entities";
-import Mapper from "../interfaces/mappers/Mapper.interface";
+import { RepositoryEntity } from "../../domain/entities";
+import Mapper from "../../domain/interfaces/mappers/Mapper.interface";
 
 class RepositoryMap implements Mapper<RepositoryEntity> {
     public toDomain(raw: any): RepositoryEntity {

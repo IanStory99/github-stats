@@ -1,5 +1,5 @@
-import { PullRequestEntity } from "../entities";
-import Mapper from "../interfaces/mappers/Mapper.interface";
+import { PullRequestEntity } from "../../domain/entities";
+import Mapper from "../../domain/interfaces/mappers/Mapper.interface";
 
 class PullRequestMap implements Mapper<PullRequestEntity> {
     public toDomain(raw: any): PullRequestEntity {

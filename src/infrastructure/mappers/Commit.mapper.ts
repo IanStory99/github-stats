@@ -1,5 +1,5 @@
-import { CommitEntity } from "../entities";
-import Mapper from "../interfaces/mappers/Mapper.interface";
+import { CommitEntity } from "../../domain/entities";
+import Mapper from "../../domain/interfaces/mappers/Mapper.interface";
 
 class CommitMap implements Mapper<CommitEntity> {
     public toDomain(raw: any): CommitEntity {

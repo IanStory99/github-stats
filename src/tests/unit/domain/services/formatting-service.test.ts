@@ -1,4 +1,4 @@
-import { FormattingService } from "@/application/services";
+import { FormattingService } from "@/domain/services";
 
 describe("FormattingService", () => {
   it("should be able to format a value", () => {

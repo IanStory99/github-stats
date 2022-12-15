@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { OrganizationServiceInterface } from "@/domain/interfaces/services";
-import { OrganizationService } from "@/application/services";
+import { OrganizationService } from "@/domain/services";
 
 class OrganizationPOCUseCase {
 

@@ -1,5 +1,5 @@
 import { OrganizationPOCUseCase } from "@/application/use-cases";
-import OrganizationOutputDTO from "@/domain/dtos/organization-output.dto";
+import OrganizationOutputDTO from "@/application/dtos/organization-output.dto";
 
 // POC: Prueba de concepto
 class OrganizationPOCController {
@@ -10,7 +10,7 @@ class OrganizationPOCController {
         this.useCase = new OrganizationPOCUseCase();
     }
 
-    public async execute(organizationId: string) : Promise<OrganizationOutputDTO> {
+    public async execute(organizationId: string): Promise<OrganizationOutputDTO> {
         const result = await this.useCase.execute(organizationId);
         return result;
     }
