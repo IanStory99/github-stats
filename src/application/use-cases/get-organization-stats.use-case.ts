@@ -26,6 +26,7 @@ class GetOrganizationStatsUseCase {
   async execute(organizationInputDto: OrganizationInputDto) {
     const organization = await this.organizationService.getOrganizationById(
       organizationInputDto.name
+      // TODO: Habilitar fechas
       // organizationInputDto.startDate,
       // organizationInputDto.endDate
     );

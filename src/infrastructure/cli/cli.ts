@@ -1,6 +1,8 @@
-import OrganizationPOCController from "@/infrastructure/controllers/organization-poc.controller";
-import OrganizationStatsController from "@/infrastructure/controllers/organization-stats.controller";
 import { Command } from "commander";
+import {
+  OrganizationStatsController,
+  OrganizationPOCController
+} from "@/infrastructure/controllers";
 
 const createCLI = () => {
   const program = new Command();
