@@ -1,12 +1,23 @@
-import { CommitEntity, OrganizationEntity, PullRequestEntity, RepositoryEntity, ReviewCommentEntity, ReviewEntity, TeamEntity } from "@/domain/entities";
-import Mapper from "@/domain/interfaces/mappers/Mapper.interface";
 import { GitRepositoryInterface } from "@/domain/interfaces/repositories";
-import CommitMap from "@/infrastructure/mappers/Commit.mapper";
-import PullRequestMap from "@/infrastructure/mappers/PullRequest.mapper";
-import RepositoryMap from "@/infrastructure/mappers/Repository.mapper";
-import ReviewMap from "@/infrastructure/mappers/Review.mapper";
-import ReviewCommentMap from "@/infrastructure/mappers/ReviewComment.mapper";
-import TeamMap from "@/infrastructure/mappers/Team.mapper";
+import { MapperInterface as Mapper } from "@/domain/interfaces/mappers";
+import { GRAPHQL_GITHUB, GRAPHQL_TOKEN } from "@/infrastructure/config";
+import {
+  CommitEntity,
+  OrganizationEntity,
+  PullRequestEntity,
+  RepositoryEntity,
+  ReviewCommentEntity,
+  ReviewEntity,
+  TeamEntity
+} from "@/domain/entities";
+import {
+  CommitMapper as CommitMap,
+  PullRequestMapper as PullRequestMap,
+  RepositoryMapper as RepositoryMap,
+  ReviewMapper as ReviewMap,
+  ReviewCommentMapper as ReviewCommentMap,
+  TeamMapper as TeamMap
+} from "@/infrastructure/mappers";
 
 class GithubRepository implements GitRepositoryInterface {
 
@@ -17,8 +28,8 @@ class GithubRepository implements GitRepositoryInterface {
   private lastDate: Date = new Date('2020-01-01');
 
   constructor() {
-    this.serviceURI = process.env.GRAPHQL_GITHUB;
-    this.serviceToken = process.env.GRAPHQL_TOKEN;
+    this.serviceURI = GRAPHQL_GITHUB;
+    this.serviceToken = GRAPHQL_TOKEN;
   }
   private async executeGraphQLQuery(query: string): Promise<any> {
     try {
@@ -320,7 +331,7 @@ class GithubRepository implements GitRepositoryInterface {
 
 
   public async getOrganizationById(organizationId: string): Promise<OrganizationEntity> {
-
+    console.log(`Retrieving ${organizationId} organization data from Github...`)
     const repoList: RepositoryEntity[] = await this.getRepositoriesByOrganization(organizationId);
     const teamList: TeamEntity[] = await this.getTeamsByOrganization(organizationId);
 

@@ -1,4 +1,9 @@
 import { config } from "dotenv";
-config({ path: `.env.${process.env.NODE_ENV || "development"}.local` });
+config({ path: ".env" });
 
-export const { NODE_ENV, LOG_FORMAT, LOG_DIR } = process.env;
+export const {
+  NODE_ENV,
+  DATABASE_URL,
+  GRAPHQL_GITHUB,
+  GRAPHQL_TOKEN
+} = process.env;
