@@ -25,7 +25,6 @@ class GithubRepository implements GitRepositoryInterface {
   private serviceToken: string;
   private request = require("axios");
   private static RECORDS_PER_PAGE = 10;
-  private lastDate: Date = new Date('2020-01-01');
 
   constructor() {
     this.serviceURI = GRAPHQL_GITHUB;
@@ -109,19 +108,26 @@ class GithubRepository implements GitRepositoryInterface {
   }
 
   private builderQueryGetPullRequestByRepositoryFromDate(
-    organizationId: string,
+    organizationDTO,
     repository: RepositoryEntity,
-    fromDate: Date,
     recordsPerPage: number,
     nextPageCursor?: string,
   ) {
     const nextPage = nextPageCursor ? `, after: "${nextPageCursor}"` : ``;
     const pagePointer = `first: ${recordsPerPage}${nextPage}`
 
+    var today = new Date();
+    var oneMonthAgo = new Date();
+    oneMonthAgo.setDate(oneMonthAgo.getDate()-30);
+
+    const OrganizationName = organizationDTO.name;
+    const fromDate = organizationDTO.startDate ? organizationDTO.startDate : oneMonthAgo;
+    const toDate = organizationDTO.endDate ? organizationDTO.endDate : today;
+
     const query = `
         query {
             search(
-              query: "repo:${organizationId}/${repository.getName()} is:pr is:merged created:>=${fromDate.toISOString()}"
+              query: "repo:${OrganizationName}/${repository.getName()} is:pr is:merged created:${fromDate.toISOString()}..${toDate.toISOString()}"
               type: ISSUE
               ${pagePointer}
             ) {
@@ -248,14 +254,14 @@ class GithubRepository implements GitRepositoryInterface {
   }
 
 
-  private async getPullRequestsByRepository(organizationId: string, repository: RepositoryEntity): Promise<PullRequestEntity[]> {
+  private async getPullRequestsByRepository(organizationDTO, repository: RepositoryEntity): Promise<PullRequestEntity[]> {
 
     const pullRequestList: PullRequestEntity[] = [];
     const prMapper: Mapper<PullRequestEntity> = new PullRequestMap();
     let hasNextPage = true;
     let nextPageCursor = null;
     while (hasNextPage) {
-      const query = this.builderQueryGetPullRequestByRepositoryFromDate(organizationId, repository, this.lastDate, GithubRepository.RECORDS_PER_PAGE, nextPageCursor);
+      const query = this.builderQueryGetPullRequestByRepositoryFromDate(organizationDTO, repository, GithubRepository.RECORDS_PER_PAGE, nextPageCursor);
       const { data } = await this.executeGraphQLQuery(query);
       const { search: { edges: results, pageInfo } } = data;
       // TODO- create reviews object
@@ -330,19 +336,19 @@ class GithubRepository implements GitRepositoryInterface {
   }
 
 
-  public async getOrganizationById(organizationId: string): Promise<OrganizationEntity> {
-    console.log(`Retrieving ${organizationId} organization data from Github...`)
-    const repoList: RepositoryEntity[] = await this.getRepositoriesByOrganization(organizationId);
-    const teamList: TeamEntity[] = await this.getTeamsByOrganization(organizationId);
+  public async getOrganizationById(organizationDTO): Promise<OrganizationEntity> {
+    console.log(`Retrieving ${organizationDTO.name} organization data from Github...`)
+    const repoList: RepositoryEntity[] = await this.getRepositoriesByOrganization(organizationDTO.name);
+    const teamList: TeamEntity[] = await this.getTeamsByOrganization(organizationDTO.name);
 
     for await (const repository of repoList) {
-      const pullRequests = await this.getPullRequestsByRepository(organizationId, repository);
+      const pullRequests = await this.getPullRequestsByRepository(organizationDTO, repository);
       repository.setPullRequests(pullRequests);
     }
 
     const organizationInstance = new OrganizationEntity(
-      organizationId,
-      organizationId,
+      organizationDTO.name,
+      organizationDTO.name,
       repoList,
       teamList
     )

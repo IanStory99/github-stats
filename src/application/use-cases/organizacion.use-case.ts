@@ -11,8 +11,8 @@ class OrganizationPOCUseCase {
         this.organizationService = new OrganizationService();
     }
 
-    async execute(organizationId: string): Promise<any> { // TODO - Devolver OrganizationDTO formatteado
-        const result = await this.organizationService.getOrganizationById(organizationId);
+    async execute(organizationDTO): Promise<any> { // TODO - Devolver OrganizationDTO formatteado
+        const result = await this.organizationService.getOrganizationById(organizationDTO);
         return result;
     }
 }
