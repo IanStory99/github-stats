@@ -14,7 +14,7 @@
     "prisma:init": "prisma init",
     "prisma:migrate": "dotenv -e .env.${NODE_ENV}.local -- npx prisma migrate dev --preview-feature",
     "prisma:generate": "prisma generate",
-    "prisma:makemigration": "prisma migrate diff --from-empty --to-schema-datamodel ./src/prisma/schema.prisma --script",
+    "prisma:makemigration": "prisma migrate diff --from-empty --to-schema-datamodel ./src/infrastructure/database/schema.prisma --script",
     "cli": "ts-node -r tsconfig-paths/register ./src/infrastructure/cli/index.ts"
   },
   "prisma": {

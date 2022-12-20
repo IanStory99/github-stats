@@ -10,8 +10,108 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Organization {
+  ID           String       @id @default(cuid())
+  TEAMS        Team[]
+  USERS        User[]
+  REPOSITORIES Repository[]
+  NAME         String
+  TIMESTAMP    DateTime
+  CREATED_AT   DateTime     @default(now())
+  UPDATED_AT   DateTime     @updatedAt
+}
+
+model Team {
+  ID              String       @id @default(cuid())
+  ORGANIZATION    Organization @relation(fields: [ORGANIZATION_ID], references: [ID])
+  ORGANIZATION_ID String
+  MEMBERS         User[]
+  NAME            String
+  SLUG            String
+  TIMESTAMP       DateTime
+  CREATED_AT      DateTime     @default(now())
+  UPDATED_AT      DateTime     @updatedAt
+}
+
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
+  ID              String          @id @default(cuid())
+  ORGANIZATION    Organization    @relation(fields: [ORGANIZATION_ID], references: [ID])
+  ORGANIZATION_ID String
+  TEAM            Team            @relation(fields: [TEAM_ID], references: [ID])
+  TEAM_ID         String
+  LOGIN           String
+  REPOSITORIES    Repository[]
+  PULLREQS        PullRequest[]
+  REVIEWS         Review[]
+  REVIEW_COMMENTS ReviewComment[]
+  COMMIT          Commit[]
+  TIMESTAMP       DateTime
+  CREATED_AT      DateTime        @default(now())
+  UPDATED_AT      DateTime        @updatedAt
+}
+
+model Repository {
+  ID                    String        @id @default(cuid())
+  OWNER_USER            User?         @relation(fields: [OWNER_USER_ID], references: [ID])
+  OWNER_ORGANIZATION    Organization? @relation(fields: [OWNER_ORGANIZATION_ID], references: [ID])
+  OWNER_USER_ID         String?
+  OWNER_ORGANIZATION_ID String?
+  PULLREQS              PullRequest[]
+  NAME                  String
+  URL                   String
+  TIMESTAMP             DateTime
+  CREATED_AT            DateTime      @default(now())
+  UPDATED_AT            DateTime      @updatedAt
+}
+
+model PullRequest {
+  ID         String     @id @default(cuid())
+  AUTHOR     User       @relation(fields: [AUTHOR_ID], references: [ID])
+  AUTHOR_ID  String
+  REPO       Repository @relation(fields: [REPO_ID], references: [ID])
+  REPO_ID    String
+  COMMITS    Commit[]
+  REVIEWS    Review[]
+  MERGED_AT  DateTime?
+  TIMESTAMP  DateTime
+  CREATED_AT DateTime   @default(now())
+  UPDATED_AT DateTime   @updatedAt
+}
+
+model Review {
+  ID              String          @id @default(cuid())
+  AUTHOR          User            @relation(fields: [AUTHOR_ID], references: [ID])
+  AUTHOR_ID       String
+  PULLREQ         PullRequest     @relation(fields: [PULLREQ_ID], references: [ID])
+  PULLREQ_ID      String
+  REVIEW_COMMENTS ReviewComment[]
+  STATE           String
+  TIMESTAMP       DateTime
+  CREATED_AT      DateTime        @default(now())
+  UPDATED_AT      DateTime        @updatedAt
+}
+
+model ReviewComment {
+  ID         String   @id @default(cuid())
+  REVIEW     Review   @relation(fields: [REVIEW_ID], references: [ID])
+  REVIEW_ID  String
+  AUTHOR     User     @relation(fields: [AUTHOR_ID], references: [ID])
+  AUTHOR_ID  String
+  TEXT       String
+  TIMESTAMP  DateTime
+  CREATED_AT DateTime @default(now())
+  UPDATED_AT DateTime @updatedAt
+}
+
+model Commit {
+  ID         String      @id @default(cuid())
+  AUTHOR     User        @relation(fields: [AUTHOR_ID], references: [ID])
+  AUTHOR_ID  String
+  PULLREQ    PullRequest @relation(fields: [PULLREQ_ID], references: [ID])
+  PULLREQ_ID String
+  ADDITIONS  Int
+  DELETIONS  Int
+  TIMESTAMP  DateTime
+  CREATED_AT DateTime    @default(now())
+  UPDATED_AT DateTime    @updatedAt
 }
