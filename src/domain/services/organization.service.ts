@@ -12,8 +12,8 @@ class OrganizationService implements OrganizationServiceInterface {
     this.repository = repository;
   }
 
-  public async getOrganizationById(organizationId: string): Promise<OrganizationEntity> {
-    const organization = await this.repository.getOrganizationById(organizationId);
+  public async getOrganizationById(organizationDTO): Promise<OrganizationEntity> {
+    const organization = await this.repository.getOrganizationById(organizationDTO);
     return organization;
   }
 

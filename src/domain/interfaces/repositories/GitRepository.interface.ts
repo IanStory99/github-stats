@@ -1,7 +1,7 @@
 import { OrganizationEntity } from "@/domain/entities";
 
 interface GitRepositoryInterface {
-  getOrganizationById(organizationId: string): Promise<OrganizationEntity>;
+  getOrganizationById(organizationDTO): Promise<OrganizationEntity>;
 }
 
 export default GitRepositoryInterface;
