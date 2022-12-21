@@ -116,13 +116,14 @@ class GithubRepository implements GitRepositoryInterface {
     const nextPage = nextPageCursor ? `, after: "${nextPageCursor}"` : ``;
     const pagePointer = `first: ${recordsPerPage}${nextPage}`
 
-    var today = new Date();
-    var oneMonthAgo = new Date();
-    oneMonthAgo.setDate(oneMonthAgo.getDate()-30);
-
     const OrganizationName = organizationDTO.name;
-    const fromDate = organizationDTO.startDate ? organizationDTO.startDate : oneMonthAgo;
+    
+    const today = new Date();
     const toDate = organizationDTO.endDate ? organizationDTO.endDate : today;
+
+    const oneMonthAgo = new Date(toDate.valueOf());
+    oneMonthAgo.setDate(oneMonthAgo.getDate()-30);
+    const fromDate = organizationDTO.startDate ? organizationDTO.startDate : oneMonthAgo;
 
     const query = `
         query {
