@@ -9,4 +9,5 @@
         - En caso de no especificar ninguno de los dos -> se cogen los datos del último mes a partir de hoy
 
     $ npm install
+    $ npm run migration:run
     $ npm run cli -- organization --name=<nombre> --startDate=<fecha inicio> --endDate=<fecha fin>
