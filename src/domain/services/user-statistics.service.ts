@@ -3,7 +3,6 @@ import { UserStatisticsServiceInterface } from "@/domain/interfaces/services";
 import { StatisticsInterface } from "@/domain/interfaces/entities";
 import { UserStatisticsEntity, OrganizationEntity } from "@/domain/entities";
 
-// @ts-ignore
 class UserStatisticsService implements UserStatisticsServiceInterface {
   private statistics: StatisticsInterface[];
 
