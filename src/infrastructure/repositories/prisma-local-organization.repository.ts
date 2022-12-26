@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { LocalOrganizationRepositoryInterface } from '@/domain/interfaces/repositories';
 import { OrganizationInputDto } from '@/application/dtos';
 import {
@@ -23,20 +22,6 @@ import {
   ReviewCommentEntity,
   UserEntity
 } from "@/domain/entities"
-
-type PrismaUpdateOrganizationWithRelations = Prisma.OrganizationUpdateInput & {
-  TEAMS: (Prisma.TeamUpdateInput & {
-    MEMBERS: Prisma.UserUpdateInput[];
-  })[];
-  REPOSITORIES: (Prisma.RepositoryUpdateInput & {
-    PULLREQS: (Prisma.PullRequestUpdateInput & {
-      COMMITS: Prisma.CommitUpdateInput[];
-      REVIEWS: (Prisma.ReviewUpdateInput & {
-        REVIEW_COMMENTS: Prisma.ReviewCommentUpdateInput[];
-      })[];
-    })[];
-  })[];
-}
 
 type PrismaSelectOrganizationWithRelations = PrismaOrganization & {
   TEAMS: (PrismaTeam & {
@@ -95,15 +80,12 @@ class PrismaLocalOrganizationRepository implements LocalOrganizationRepositoryIn
   }
 
   async persist(organization: OrganizationEntity): Promise<void> {
-    const organizationToSave = this.domainToPrisma(organization);
-
     await this.prisma.organization.upsert({
       where: {
         ID: organization.getId(),
       },
-      // @ts-ignore
-      create: organizationToSave,
-      update: organizationToSave,
+      create: this.domainToPrismaCreate(organization),
+      update: this.domainToPrismaUpdate(organization)
     });
   }
 
@@ -158,63 +140,99 @@ class PrismaLocalOrganizationRepository implements LocalOrganizationRepositoryIn
     );
   }
 
-  private domainToPrisma(organization: OrganizationEntity): PrismaUpdateOrganizationWithRelations {
-    // TODO: Add TIMESTAMPS
+  private domainToPrismaCreate(organization: OrganizationEntity): Prisma.OrganizationCreateInput {
+    // TODO: Add real TIMESTAMPS
     return {
       ID: organization.getId(),
       NAME: organization.getName(),
-      REPOSITORIES: organization.getRepositories().map((repository) => ({
-        ID: repository.getId(),
-        OWNER_ORGANIZATION_ID: repository.getOwnerId(),
-        URL: repository.getUrl(),
-        NAME: repository.getName(),
-        TIMESTAMP: null,
-        PULLREQS: repository.getPullRequests().map((pullRequest) => ({
-          ID: pullRequest.getId(),
-          REPO_ID: pullRequest.getRepositoryId(),
-          AUTHOR_ID: pullRequest.getUserId(),
-          COMMITS: pullRequest.getCommits().map((commit) => ({
-            ID: commit.getId(),
-            AUTHOR_ID: commit.getAuthorLogin(),
-            PULLREQ_ID: commit.getPullRequestId(),
-            ADDITIONS: commit.getAdditions(),
-            DELETIONS: commit.getDeletions(),
-            TIMESTAMP: null
-          })),
-          REVIEWS: pullRequest.getReviews().map((review) => ({
-            ID: review.getId(),
-            PULLREQ_ID: review.getPullRequestId(),
-            AUTHOR_ID: review.getAuthorId(),
-            STATE: review.getState(),
-            TIMESTAMP: null,
-            REVIEW_COMMENTS: review.getReviewComments().map((reviewComment) => ({
-              ID: reviewComment.getId(),
-              REVIEW_ID: reviewComment.getReviewId(),
-              AUTHOR_ID: reviewComment.getLogin(),
-              TEXT: reviewComment.getText(),
-              TIMESTAMP: null
+      TIMESTAMP: new Date(),
+      TEAMS: {
+        create: organization.getTeams().map((team) => ({
+          ID: team.getId(),
+          NAME: team.getName(),
+          SLUG: team.getSlug(),
+          TIMESTAMP: new Date(),
+          MEMBERS: {
+            create: team.getMembers().map((member) => ({
+              ID: member.getId(),
+              LOGIN: member.getLogin(),
+              TIMESTAMP: new Date(),
+              ORGANIZATION: {
+                connect: {
+                  ID: organization.getId()
+                }
+              }
             }))
-          })),
-          CREATED_AT: pullRequest.getCreatedAt(),
-          UPDATED_AT: pullRequest.getUpdatedAt(),
-          MERGED_AT: pullRequest.getMergedAt(),
-          TIMESTAMP: null
+          }
         }))
-      })),
-      TEAMS: organization.getTeams().map((team) => ({
-        ID: team.getId(),
-        ORGANIZATION_ID: team.getOrganizationId(),
-        NAME: team.getName(),
-        SLUG: team.getSlug(),
-        MEMBERS: team.getMembers().map((member) => ({
-          ID: member.getId(),
-          LOGIN: member.getLogin(),
-          TEAM_ID: member.getTeamId(),
-          ORGANIZATION_ID: team.getOrganizationId(),
-          TIMESTAMP: null
-        })),
-        TIMESTAMP: null
-      }))
+      },
+    }
+  }
+
+  private domainToPrismaUpdate(organization: OrganizationEntity): Prisma.OrganizationUpdateInput {
+    // TODO: Add real TIMESTAMPS
+    return {
+      ID: organization.getId(),
+      NAME: organization.getName(),
+      TIMESTAMP: new Date(),
+      TEAMS: {
+        upsert: organization.getTeams().map((team) => ({
+          where: {
+            ID: team.getId()
+          },
+          create: {
+            ID: team.getId(),
+            NAME: team.getName(),
+            SLUG: team.getSlug(),
+            TIMESTAMP: new Date(),
+            MEMBERS: {
+              create: team.getMembers().map((member) => ({
+                ID: member.getId(),
+                LOGIN: member.getLogin(),
+                TIMESTAMP: new Date(),
+                ORGANIZATION: {
+                  connect: {
+                    ID: organization.getId()
+                  }
+                }
+              }))
+            }
+          },
+          update: {
+            ID: team.getId(),
+            NAME: team.getName(),
+            SLUG: team.getSlug(),
+            TIMESTAMP: new Date(),
+            MEMBERS: {
+              upsert: team.getMembers().map((member) => ({
+                where: {
+                  ID: member.getId()
+                },
+                create: {
+                  ID: member.getId(),
+                  LOGIN: member.getLogin(),
+                  TIMESTAMP: new Date(),
+                  ORGANIZATION: {
+                    connect: {
+                      ID: organization.getId()
+                    }
+                  }
+                },
+                update: {
+                  ID: member.getId(),
+                  LOGIN: member.getLogin(),
+                  TIMESTAMP: new Date(),
+                  ORGANIZATION: {
+                    connect: {
+                      ID: organization.getId()
+                    }
+                  }
+                }
+              }))
+            }
+          }
+        }))
+      },
     };
   }
 }

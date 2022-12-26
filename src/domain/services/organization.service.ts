@@ -2,6 +2,7 @@
 import { OrganizationEntity } from "@/domain/entities";
 import { OrganizationRepositoryInterface } from "@/domain/interfaces/repositories";
 import { OrganizationServiceInterface } from "@/domain/interfaces/services";
+import { PrismaLocalOrganizationRepository } from "@/infrastructure/repositories";
 
 // @ts-ignore
 class OrganizationService implements OrganizationServiceInterface {
@@ -14,6 +15,12 @@ class OrganizationService implements OrganizationServiceInterface {
 
   public async findById(organizationDTO): Promise<OrganizationEntity> {
     const organization = await this.repository.findById(organizationDTO);
+
+    // TODO: REMOVER!!!
+    console.log(organization.getTeams().map((team) => team.getMembers()));
+    const pepe = new PrismaLocalOrganizationRepository();
+    await pepe.persist(organization);
+
     return organization;
   }
 
