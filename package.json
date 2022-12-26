@@ -11,6 +11,7 @@
     "test:unit": "jest  -c jest.config.unit.js --silent --coverage --forceExit --detectOpenHandles",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix",
+    "prisma:generate": "prisma generate --schema ./src/infrastructure/database/schema.prisma",
     "migration:make": "prisma migrate dev --schema ./src/infrastructure/database/schema.prisma",
     "migration:run": "prisma migrate deploy --schema ./src/infrastructure/database/schema.prisma",
     "cli": "ts-node -r tsconfig-paths/register ./src/infrastructure/cli/index.ts"

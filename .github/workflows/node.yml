@@ -21,6 +21,5 @@ jobs:
           scope: "@octocat"
       - run: npm install
       - run: npm install -g jest
-      - run: echo "DATABASE_URL=file:../../../db.sqlite3" > .env
-      - run: npm run migration:run
+      - run: npm run prisma:generate
       - run: npm run test:unit
