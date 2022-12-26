@@ -1,9 +1,9 @@
 import OrganizationEntity from '@/domain/entities/organization.entity';
-import { GitRepositoryInterface } from "@/domain/interfaces/repositories";
+import { OrganizationRepositoryInterface } from "@/domain/interfaces/repositories";
 
 interface OrganizationServiceInterface {
-  new(repository: GitRepositoryInterface),
-  getOrganizationById(organizationDTO): Promise<OrganizationEntity>;
+  new(repository: OrganizationRepositoryInterface),
+  findById(organizationDTO): Promise<OrganizationEntity>;
 }
 
 export default OrganizationServiceInterface;

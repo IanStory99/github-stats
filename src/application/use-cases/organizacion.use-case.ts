@@ -12,7 +12,7 @@ class OrganizationPOCUseCase {
     }
 
     async execute(organizationDTO): Promise<any> { // TODO - Devolver OrganizationDTO formatteado
-        const result = await this.organizationService.getOrganizationById(organizationDTO);
+        const result = await this.organizationService.findById(organizationDTO);
         return result;
     }
 }

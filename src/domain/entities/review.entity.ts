@@ -15,8 +15,20 @@ class ReviewEntity {
     this.reviewComments = reviewComments;
   }
 
+  public getId(): string {
+    return this.id;
+  }
+
+  public getPullRequestId(): string {
+    return this.pullRequestId;
+  }
+
   public getAuthorId(): string {
     return this.authorId;
+  }
+
+  public getState(): string {
+    return this.state;
   }
 
   public getReviewComments(): ReviewCommentEntity[] {
@@ -27,7 +39,7 @@ class ReviewEntity {
     return this.state === "APPROVED" || this.state === "CHANGES_REQUESTED";
   }
 
-  public setReviewComments(reviewComments: ReviewCommentEntity[]) : void {
+  public setReviewComments(reviewComments: ReviewCommentEntity[]): void {
     this.reviewComments = reviewComments;
   }
 

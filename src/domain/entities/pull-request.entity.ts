@@ -30,6 +30,14 @@ class PullRequestEntity {
     this.mergedAt = mergedAt;
   }
 
+  public getId(): string {
+    return this.id;
+  }
+
+  public getRepositoryId(): string {
+    return this.repositoryId;
+  }
+
   public getUserId(): string {
     return this.userId;
   }
@@ -42,12 +50,24 @@ class PullRequestEntity {
     return this.reviews;
   }
 
+  public getCreatedAt(): Date {
+    return this.createdAt;
+  }
+
+  public getUpdatedAt(): Date {
+    return this.updatedAt;
+  }
+
+  public getMergedAt(): Date {
+    return this.mergedAt;
+  }
+
   public setCommits(commits: CommitEntity[]): void {
     this.commits = commits;
   }
 
   public setReviews(commits: ReviewEntity[]): void {
-    this.reviews= commits;
+    this.reviews = commits;
   }
 
   public isExecuted(): boolean {

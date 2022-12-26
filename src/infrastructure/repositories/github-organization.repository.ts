@@ -1,4 +1,4 @@
-import { GitRepositoryInterface } from "@/domain/interfaces/repositories";
+import { OrganizationRepositoryInterface } from "@/domain/interfaces/repositories";
 import { MapperInterface as Mapper } from "@/domain/interfaces/mappers";
 import { GRAPHQL_GITHUB, GRAPHQL_TOKEN } from "@/infrastructure/config";
 import {
@@ -19,7 +19,7 @@ import {
   TeamMapper as TeamMap
 } from "@/infrastructure/mappers";
 
-class GithubRepository implements GitRepositoryInterface {
+class GithubOrganizationRepository implements OrganizationRepositoryInterface {
 
   private serviceURI: string;
   private serviceToken: string;
@@ -117,12 +117,12 @@ class GithubRepository implements GitRepositoryInterface {
     const pagePointer = `first: ${recordsPerPage}${nextPage}`
 
     const OrganizationName = organizationDTO.name;
-    
+
     const today = new Date();
     const toDate = organizationDTO.endDate ? organizationDTO.endDate : today;
 
     const oneMonthAgo = new Date(toDate.valueOf());
-    oneMonthAgo.setDate(oneMonthAgo.getDate()-30);
+    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
     const fromDate = organizationDTO.startDate ? organizationDTO.startDate : oneMonthAgo;
 
     const query = `
@@ -205,7 +205,7 @@ class GithubRepository implements GitRepositoryInterface {
     let hasNextPage = true;
     let nextPageCursor = null;
     while (hasNextPage) {
-      const query = this.buildQueryGetTeamsByOrganizationId(organizationId, GithubRepository.RECORDS_PER_PAGE, nextPageCursor)
+      const query = this.buildQueryGetTeamsByOrganizationId(organizationId, GithubOrganizationRepository.RECORDS_PER_PAGE, nextPageCursor)
       const { data } = await this.executeGraphQLQuery(query);
       const { organization } = data;
       const { teams: { pageInfo, nodes: teams } } = organization;
@@ -233,7 +233,7 @@ class GithubRepository implements GitRepositoryInterface {
     let hasNextPage = true;
     let nextPageCursor = null;
     while (hasNextPage) {
-      const query = this.buildQueryGetRepositoriesByOrganizationId(organizationId, GithubRepository.RECORDS_PER_PAGE, nextPageCursor);
+      const query = this.buildQueryGetRepositoriesByOrganizationId(organizationId, GithubOrganizationRepository.RECORDS_PER_PAGE, nextPageCursor);
       const { data } = await this.executeGraphQLQuery(query);
       const { organization } = data;
       const { repositories: { pageInfo, nodes: repos } } = organization;
@@ -262,7 +262,7 @@ class GithubRepository implements GitRepositoryInterface {
     let hasNextPage = true;
     let nextPageCursor = null;
     while (hasNextPage) {
-      const query = this.builderQueryGetPullRequestByRepositoryFromDate(organizationDTO, repository, GithubRepository.RECORDS_PER_PAGE, nextPageCursor);
+      const query = this.builderQueryGetPullRequestByRepositoryFromDate(organizationDTO, repository, GithubOrganizationRepository.RECORDS_PER_PAGE, nextPageCursor);
       const { data } = await this.executeGraphQLQuery(query);
       const { search: { edges: results, pageInfo } } = data;
       // TODO- create reviews object
@@ -337,7 +337,7 @@ class GithubRepository implements GitRepositoryInterface {
   }
 
 
-  public async getOrganizationById(organizationDTO): Promise<OrganizationEntity> {
+  public async findById(organizationDTO): Promise<OrganizationEntity> {
     console.log(`Retrieving ${organizationDTO.name} organization data from Github...`)
     const repoList: RepositoryEntity[] = await this.getRepositoriesByOrganization(organizationDTO.name);
     const teamList: TeamEntity[] = await this.getTeamsByOrganization(organizationDTO.name);
@@ -357,4 +357,4 @@ class GithubRepository implements GitRepositoryInterface {
   }
 }
 
-export default GithubRepository;
+export default GithubOrganizationRepository;

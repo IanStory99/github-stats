@@ -19,8 +19,24 @@ class CommitEntity {
     this.deletions = deletions;
   }
 
+  public getId(): string {
+    return this.id;
+  }
+
   public getAuthorLogin(): string {
     return this.authorLogin;
+  }
+
+  public getPullRequestId(): string {
+    return this.pullRequestId;
+  }
+
+  public getAdditions(): number {
+    return this.additions;
+  }
+
+  public getDeletions(): number {
+    return this.deletions;
   }
 
   public getCodeDiffCount(): number {
