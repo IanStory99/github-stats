@@ -1,7 +1,6 @@
 import { Command } from "commander";
 import {
   OrganizationStatsController,
-  OrganizationPOCController
 } from "@/infrastructure/controllers";
 
 const createCLI = () => {
@@ -10,17 +9,6 @@ const createCLI = () => {
   program.name("GitHub Stats");
   program.description("Command line tool to perform Github Stats operations.");
 
-
-  program
-    .command("organization-test")
-    .description(
-      "Return all user data"
-    )
-    .action(async () => {
-      const organizationController = new OrganizationPOCController();
-      const result = await organizationController.execute(process.env.ORGANIZATION_ID);
-      console.log(result);
-    });
 
   program
     .command("organization")

@@ -23,7 +23,6 @@ class OrganizationStatsController {
 
   constructor() {
     this.useCase = new GetOrganizationStatsUseCase(
-      // @ts-ignore
       new OrganizationService(new GithubRepository()),
       new UserStatisticsService([
         new AverageCommentLengthStatisticsEntity(),
