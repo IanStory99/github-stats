@@ -4,6 +4,7 @@ import { OrganizationRepositoryInterface } from "@/domain/interfaces/repositorie
 interface OrganizationServiceInterface {
   new(repository: OrganizationRepositoryInterface),
   findById(organizationDTO): Promise<OrganizationEntity>;
+  getOrganizationByIdFilteredByTeamSlug(organizationDTO): Promise<OrganizationEntity>;
 }
 
 export default OrganizationServiceInterface;

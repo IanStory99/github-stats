@@ -18,6 +18,7 @@ import {
   ReviewCommentMapper as ReviewCommentMap,
   TeamMapper as TeamMap
 } from "@/infrastructure/mappers";
+import OrganizationTeamInputDto from "@/application/dtos/organizationteam-input.dto";
 
 class GithubOrganizationRepository implements OrganizationRepositoryInterface {
 
@@ -49,15 +50,16 @@ class GithubOrganizationRepository implements OrganizationRepositoryInterface {
     }
   }
 
-  private buildQueryGetTeamsByOrganizationId(organizationId: string, recordsPerPage: number, nextPageCursor?: string) {
+  private buildQueryGetTeamsByOrganizationId(organizationId: string, recordsPerPage: number, nextPageCursor?: string, teamSlug?: string) {
 
     const nextPage = nextPageCursor ? `, after: "${nextPageCursor}"` : ``;
     const pagePointer = `first: ${recordsPerPage}${nextPage}`
+    const filterTeam = teamSlug ? `, query: "${teamSlug}" ` : ``;
     const query = `
         query {
             organization(login: "${organizationId}") {
               id
-              teams(${pagePointer}) {
+              teams(${pagePointer} ${filterTeam}) {
                 pageInfo {
                   hasNextPage
                   endCursor
@@ -199,13 +201,13 @@ class GithubOrganizationRepository implements OrganizationRepositoryInterface {
     return query;
   }
 
-  private async getTeamsByOrganization(organizationId: string): Promise<TeamEntity[]> {
+  private async getTeamsByOrganization(organizationId: string, teamSlug?: string): Promise<TeamEntity[]> {
     const teamList: TeamEntity[] = [];
     const teamMapper: Mapper<TeamEntity> = new TeamMap();
     let hasNextPage = true;
     let nextPageCursor = null;
     while (hasNextPage) {
-      const query = this.buildQueryGetTeamsByOrganizationId(organizationId, GithubOrganizationRepository.RECORDS_PER_PAGE, nextPageCursor)
+      const query = this.buildQueryGetTeamsByOrganizationId(organizationId, GithubOrganizationRepository.RECORDS_PER_PAGE, nextPageCursor, teamSlug)
       const { data } = await this.executeGraphQLQuery(query);
       const { organization } = data;
       const { teams: { pageInfo, nodes: teams } } = organization;
@@ -350,6 +352,24 @@ class GithubOrganizationRepository implements OrganizationRepositoryInterface {
     const organizationInstance = new OrganizationEntity(
       organizationDTO.name,
       organizationDTO.name,
+      repoList,
+      teamList
+    )
+    return organizationInstance;
+  }
+
+  public async getOrganizationByIdFilteredByTeamSlug(organizationTeamDTO: OrganizationTeamInputDto): Promise<OrganizationEntity> {
+    const repoList: RepositoryEntity[] = await this.getRepositoriesByOrganization(organizationTeamDTO.name);
+    const teamList: TeamEntity[] = await this.getTeamsByOrganization(organizationTeamDTO.name, organizationTeamDTO.teamSlug);
+
+    for await (const repository of repoList) {
+      const pullRequests = await this.getPullRequestsByRepository(organizationTeamDTO, repository);
+      repository.setPullRequests(pullRequests);
+    }
+
+    const organizationInstance = new OrganizationEntity(
+      organizationTeamDTO.name,
+      organizationTeamDTO.name,
       repoList,
       teamList
     )
