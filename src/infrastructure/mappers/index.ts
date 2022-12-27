@@ -4,3 +4,6 @@ export { default as RepositoryMapper } from './Repository.mapper';
 export { default as ReviewMapper } from './Review.mapper';
 export { default as ReviewCommentMapper } from './ReviewComment.mapper';
 export { default as TeamMapper } from './Team.mapper';
+export { default as PrismaToDomainOrganizationMapper } from './prisma-to-domain-organization.mapper';
+export { default as DomainOrganizationToPrismaCreateMapper } from './domain-organization-to-prisma-create.mapper';
+export { default as DomainOrganizationToPrismaUpdateMapper } from './domain-organization-to-prisma-update.mapper';

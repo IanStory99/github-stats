@@ -2,11 +2,11 @@ name: Nodejs Workflow
 
 on:
   push:
-    branches: 
-      - '**'
+    branches:
+      - "**"
   pull_request:
     branches:
-      - '**'
+      - "**"
 jobs:
   nodetest:
     runs-on: ubuntu-latest
@@ -16,9 +16,10 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: "14.x"
           registry-url: https://registry.npmjs.org
-          scope: '@octocat'
+          scope: "@octocat"
       - run: npm install
       - run: npm install -g jest
+      - run: npm run prisma:generate
       - run: npm run test:unit

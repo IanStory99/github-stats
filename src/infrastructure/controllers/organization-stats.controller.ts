@@ -8,7 +8,7 @@ import { validateOrReject } from "class-validator";
 import { GetOrganizationStatsUseCase } from "@/application/use-cases";
 import { OrganizationInputDto } from "@/application/dtos";
 import { ErrorException } from "@/domain/exceptions";
-import { GithubRepository } from "@/infrastructure/repositories";
+import { GithubOrganizationRepository } from "@/infrastructure/repositories";
 import {
   CSVFormatter,
   AverageCommentLengthStatisticsEntity,
@@ -23,7 +23,8 @@ class OrganizationStatsController {
 
   constructor() {
     this.useCase = new GetOrganizationStatsUseCase(
-      new OrganizationService(new GithubRepository()),
+      // @ts-ignore
+      new OrganizationService(new GithubOrganizationRepository()),
       new UserStatisticsService([
         new AverageCommentLengthStatisticsEntity(),
         new CommitCountStatisticsEntity(),

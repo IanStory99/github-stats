@@ -24,7 +24,7 @@ class GetOrganizationStatsUseCase {
   }
 
   async execute(organizationInputDto: OrganizationInputDto) {
-    const organization = await this.organizationService.getOrganizationById(
+    const organization = await this.organizationService.findById(
       organizationInputDto
     );
     const organizationUsersStatistics = this.userStatisticsService.getOrganizationUsersStatistics(

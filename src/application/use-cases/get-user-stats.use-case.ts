@@ -14,7 +14,7 @@ import {
   UserStatisticsServiceInterface,
   FormattingServiceInterface
 } from "@/domain/interfaces/services";
-import { GithubRepository } from "@/infrastructure/repositories";
+import { GithubOrganizationRepository } from "@/infrastructure/repositories";
 
 class GetUserStatsUseCase {
   private organizationService: OrganizationServiceInterface;
@@ -26,7 +26,7 @@ class GetUserStatsUseCase {
     userStatisticsService: UserStatisticsServiceInterface,
     formattingService: FormattingServiceInterface
   ) {
-    this.organizationService = new organizationService(new GithubRepository());
+    this.organizationService = new organizationService(new GithubOrganizationRepository());
     this.userStatisticsService = new userStatisticsService([
       new AverageCommentLengthStatisticsEntity(),
       new CommitCountStatisticsEntity(),

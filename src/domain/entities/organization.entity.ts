@@ -18,6 +18,14 @@ class OrganizationEntity {
     this.teams = teams;
   }
 
+  public getId(): string {
+    return this.id;
+  }
+
+  public getName(): string {
+    return this.name;
+  }
+
   public getRepositories(): RepositoryEntity[] {
     return this.repositories;
   }

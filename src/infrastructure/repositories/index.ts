@@ -1,2 +1,2 @@
-export { default as GithubRepository } from "./github.repository";
-// export { default as MySQLRepository } from "./mysql.repository";
+export { default as GithubOrganizationRepository } from "./github-organization.repository";
+export { default as PrismaLocalOrganizationRepository } from "./prisma-local-organization.repository";

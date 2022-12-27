@@ -21,10 +21,22 @@ class TeamEntity {
     this.members = members;
   }
 
+  public getId(): string {
+    return this.id;
+  }
+
+  public getOrganizationId(): string {
+    return this.organizationId;
+  }
+
   public getName(): string {
     return this.name;
   }
-  
+
+  public getSlug(): string {
+    return this.slug;
+  }
+
   public getMembers(): UserEntity[] {
     return this.members;
   }

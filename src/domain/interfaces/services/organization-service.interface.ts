@@ -1,10 +1,10 @@
-import { OrganizationInputDto } from '@/application/dtos';
-import OrganizationTeamInputDto from '@/application/dtos/organizationteam-input.dto';
 import OrganizationEntity from '@/domain/entities/organization.entity';
+import { OrganizationRepositoryInterface } from "@/domain/interfaces/repositories";
 
 interface OrganizationServiceInterface {
-  getOrganizationById(organizationDTO: OrganizationInputDto): Promise<OrganizationEntity>;
-  getOrganizationByIdFilteredByTeamSlug(organizationTeamDTO: OrganizationTeamInputDto): Promise<OrganizationEntity>;
+  new(repository: OrganizationRepositoryInterface),
+  findById(organizationDTO): Promise<OrganizationEntity>;
+  getOrganizationByIdFilteredByTeamSlug(organizationDTO): Promise<OrganizationEntity>;
 }
 
 export default OrganizationServiceInterface;

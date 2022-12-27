@@ -17,8 +17,8 @@ model Organization {
   REPOSITORIES Repository[]
   NAME         String
   TIMESTAMP    DateTime
-  CREATED_AT   DateTime     @default(now())
-  UPDATED_AT   DateTime     @updatedAt
+  CREATED_AT   DateTime?    @default(now())
+  UPDATED_AT   DateTime?    @updatedAt
 }
 
 model Team {
@@ -29,8 +29,8 @@ model Team {
   NAME            String
   SLUG            String
   TIMESTAMP       DateTime
-  CREATED_AT      DateTime     @default(now())
-  UPDATED_AT      DateTime     @updatedAt
+  CREATED_AT      DateTime?    @default(now())
+  UPDATED_AT      DateTime?    @updatedAt
 }
 
 model User {
@@ -46,8 +46,8 @@ model User {
   REVIEW_COMMENTS ReviewComment[]
   COMMIT          Commit[]
   TIMESTAMP       DateTime
-  CREATED_AT      DateTime        @default(now())
-  UPDATED_AT      DateTime        @updatedAt
+  CREATED_AT      DateTime?       @default(now())
+  UPDATED_AT      DateTime?       @updatedAt
 }
 
 model Repository {
@@ -60,8 +60,8 @@ model Repository {
   NAME                  String
   URL                   String
   TIMESTAMP             DateTime
-  CREATED_AT            DateTime      @default(now())
-  UPDATED_AT            DateTime      @updatedAt
+  CREATED_AT            DateTime?     @default(now())
+  UPDATED_AT            DateTime?     @updatedAt
 }
 
 model PullRequest {
@@ -74,8 +74,8 @@ model PullRequest {
   REVIEWS    Review[]
   MERGED_AT  DateTime?
   TIMESTAMP  DateTime
-  CREATED_AT DateTime   @default(now())
-  UPDATED_AT DateTime   @updatedAt
+  CREATED_AT DateTime?  @default(now())
+  UPDATED_AT DateTime?  @updatedAt
 }
 
 model Review {
@@ -87,20 +87,20 @@ model Review {
   REVIEW_COMMENTS ReviewComment[]
   STATE           String
   TIMESTAMP       DateTime
-  CREATED_AT      DateTime        @default(now())
-  UPDATED_AT      DateTime        @updatedAt
+  CREATED_AT      DateTime?       @default(now())
+  UPDATED_AT      DateTime?       @updatedAt
 }
 
 model ReviewComment {
-  ID         String   @id @default(cuid())
-  REVIEW     Review   @relation(fields: [REVIEW_ID], references: [ID])
+  ID         String    @id @default(cuid())
+  REVIEW     Review    @relation(fields: [REVIEW_ID], references: [ID])
   REVIEW_ID  String
-  AUTHOR     User     @relation(fields: [AUTHOR_ID], references: [ID])
+  AUTHOR     User      @relation(fields: [AUTHOR_ID], references: [ID])
   AUTHOR_ID  String
   TEXT       String
   TIMESTAMP  DateTime
-  CREATED_AT DateTime @default(now())
-  UPDATED_AT DateTime @updatedAt
+  CREATED_AT DateTime? @default(now())
+  UPDATED_AT DateTime? @updatedAt
 }
 
 model Commit {
@@ -112,6 +112,6 @@ model Commit {
   ADDITIONS  Int
   DELETIONS  Int
   TIMESTAMP  DateTime
-  CREATED_AT DateTime    @default(now())
-  UPDATED_AT DateTime    @updatedAt
+  CREATED_AT DateTime?   @default(now())
+  UPDATED_AT DateTime?   @updatedAt
 }

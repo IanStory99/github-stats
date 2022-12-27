@@ -1,20 +1,20 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { OrganizationInputDto } from "@/application/dtos";
 import OrganizationTeamInputDto from "@/application/dtos/organizationteam-input.dto";
 import { OrganizationEntity } from "@/domain/entities";
-import { GitRepositoryInterface } from "@/domain/interfaces/repositories";
+import { OrganizationRepositoryInterface } from "@/domain/interfaces/repositories";
 import { OrganizationServiceInterface } from "@/domain/interfaces/services";
 
+// @ts-ignore
 class OrganizationService implements OrganizationServiceInterface {
 
-  private repository: GitRepositoryInterface;
+  private repository: OrganizationRepositoryInterface;
 
-  constructor(repository: GitRepositoryInterface) {
+  constructor(repository: OrganizationRepositoryInterface) {
     this.repository = repository;
   }
 
-  public async getOrganizationById(organizationDTO: OrganizationInputDto): Promise<OrganizationEntity> {
-    const organization = await this.repository.getOrganizationById(organizationDTO);
+  public async findById(organizationDTO): Promise<OrganizationEntity> {
+    const organization = await this.repository.findById(organizationDTO);
     return organization;
   }
 
