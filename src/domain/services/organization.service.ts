@@ -17,7 +17,7 @@ class OrganizationService implements OrganizationServiceInterface {
     const organization = await this.repository.findById(organizationDTO);
 
     // TODO: REMOVER!!!
-    console.log(organization.getTeams().map((team) => team.getMembers()));
+    // console.log(organization.getRepositories().map((repo) => repo.getPullRequests().map((pr) => pr.getCommits().map((commit) => commit.getId()))));
     const pepe = new PrismaLocalOrganizationRepository();
     await pepe.persist(organization);
 
