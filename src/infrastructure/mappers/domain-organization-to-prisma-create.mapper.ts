@@ -66,6 +66,7 @@ class DomainOrganizationToPrismaCreateMapper {
               },
               MERGED_AT: pullRequest.getMergedAt(),
               TIMESTAMP: new Date(),
+              // TODO: Add commits
               // COMMITS: {
               //   create: pullRequest.getCommits().map((commit) => ({
               //     ID: commit.getId(),
@@ -123,6 +124,7 @@ class DomainOrganizationToPrismaCreateMapper {
                   },
                   TIMESTAMP: new Date(),
                   STATE: review.getState(),
+                  // TODO: Add review comments
                   // REVIEW_COMMENTS: {
                   //   create: review.getReviewComments().map((reviewComment) => ({
                   //     ID: reviewComment.getId(),
