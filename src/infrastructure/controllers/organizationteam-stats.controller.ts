@@ -36,12 +36,13 @@ class TeamOrganizationStatsController {
     );
   }
 
-  async execute(organizationName: string, teamSlug: string, startDate: Date, endDate: Date) {
+  async execute(organizationName: string, teamSlug: string, startDate: Date, endDate: Date, savePath: string) {
     const organizationTeamInputDto = new OrganizationTeamInputDto();
     organizationTeamInputDto.name = organizationName;
     organizationTeamInputDto.teamSlug = teamSlug;
     organizationTeamInputDto.startDate = startDate;
     organizationTeamInputDto.endDate = endDate;
+    organizationTeamInputDto.savePath = savePath;
     try {
       await validateOrReject(organizationTeamInputDto);
     } catch (errors) {

@@ -132,6 +132,6 @@ dist
 .vscode/
 .DS_Store
 
-output.csv
+*.csv
 
 db.*

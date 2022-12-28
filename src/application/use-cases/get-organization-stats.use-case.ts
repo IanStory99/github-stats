@@ -32,7 +32,7 @@ class GetOrganizationStatsUseCase {
     );
     const statsJSON = this.buildStatsJSON(organization, organizationUsersStatistics);
     const formattedStatistics = this.formattingService.format(statsJSON);
-    formattedStatistics.saveToFile();
+    formattedStatistics.saveToFile(organizationInputDto.savePath);
 
     return formattedStatistics;
   }

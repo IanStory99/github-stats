@@ -13,6 +13,8 @@ class OrganizationTeamInputDto {
   @IsOptional() @IsDate({ message: "End date must be a valid date" })
   endDate: Date | null;
 
+  @IsOptional() @IsString({ message: "Save path must be a string" })
+  savePath: string | null;
 }
 
 export default OrganizationTeamInputDto;

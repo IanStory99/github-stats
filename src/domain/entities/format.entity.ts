@@ -1,9 +1,9 @@
 class FormatEntity {
   private formatType: string;
   private formatData: any;
-  private saveToFileFunction: Function;
+  private saveToFileFunction: (savePath: string) => void;
 
-  constructor(formatType: string, formatData: any, saveToFileFunction: Function) {
+  constructor(formatType: string, formatData: any, saveToFileFunction: (savePath: string) => void) {
     this.formatType = formatType;
     this.formatData = formatData;
     this.saveToFileFunction = saveToFileFunction;
@@ -21,8 +21,8 @@ class FormatEntity {
     return this.saveToFileFunction;
   }
 
-  saveToFile() {
-    return this.saveToFileFunction();
+  saveToFile(savePath: string) {
+    this.saveToFileFunction(savePath);
   }
 
   setFormatType(formatType: string) {
@@ -33,7 +33,7 @@ class FormatEntity {
     this.formatData = formatData;
   }
 
-  setSaveToFileFunction(saveToFileFunction: Function) {
+  setSaveToFileFunction(saveToFileFunction: (savePath: string) => void) {
     this.saveToFileFunction = saveToFileFunction;
   }
 }
