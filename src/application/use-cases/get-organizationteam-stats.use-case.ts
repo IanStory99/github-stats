@@ -1,8 +1,5 @@
 import { OrganizationEntity, UserStatisticsEntity } from "@/domain/entities";
 import {
-  OrganizationInputDto
-} from "@/application/dtos";
-import {
   OrganizationServiceInterface,
   UserStatisticsServiceInterface,
   FormattingServiceInterface
@@ -33,8 +30,7 @@ class GetOrganizationTeamStatsUseCase {
     );
     const statsJSON = this.buildStatsJSON(organization, organizationUsersStatistics);
     const formattedStatistics = this.formattingService.format(statsJSON);
-    console.table(statsJSON);
-    formattedStatistics.saveToFile();
+    formattedStatistics.saveToFile(organizationInputDto.savePath);
 
     return formattedStatistics;
   }

@@ -31,7 +31,7 @@ describe("FormatEntity", () => {
       const saveToFileFunction = jest.fn();
       const format = new FormatEntity("formatType", "formatData", saveToFileFunction);
 
-      format.saveToFile();
+      format.saveToFile("output.csv");
 
       expect(saveToFileFunction).toHaveBeenCalled();
     });

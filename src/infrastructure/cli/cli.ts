@@ -10,12 +10,12 @@ const createCLI = () => {
   program.name("GitHub Stats");
   program.description("Command line tool to perform Github Stats operations.");
 
-
   program
     .command("organization")
     .requiredOption("-n, --name <name>", "Organization name")
     .option("-s, --startDate <startDate>", "Start date in format YYYY-MM-DD")
     .option("-e, --endDate <endDate>", "End date in format YYYY-MM-DD")
+    .option("-p, --savePath <savePath>", "Path to save the output file")
     .description("Return organization statistics")
     .action(async (options) => {
       const organizationController = new OrganizationStatsController();
@@ -23,20 +23,20 @@ const createCLI = () => {
       const endDateObject = options.endDate ? new Date(options.endDate) : null;
       try {
         console.log(`Calculating organization stats for ${options.name}...`);
-        await organizationController.execute(options.name, startDateObject, endDateObject);
-        console.log("Organization stats saved in file 'output.csv'");
+        await organizationController.execute(options.name, startDateObject, endDateObject, options.savePath);
+        console.log(`Organization stats saved on path ${options.savePath || './output.csv'}`);
       } catch (error) {
         console.error(error.message);
       }
     });
 
-
-    program
+  program
     .command("organization-team")
     .requiredOption("-n, --name <name>", "Organization name")
     .requiredOption("-t, --team <teamSlug>", "Team slug. E.g. dev-melon")
     .option("-s, --startDate <startDate>", "Start date in format YYYY-MM-DD")
     .option("-e, --endDate <endDate>", "End date in format YYYY-MM-DD")
+    .option("-p, --savePath <savePath>", "Path to save the output file")
     .description("Return organization team statistics")
     .action(async (options) => {
       const organizationController = new TeamOrganizationStatsController();
@@ -45,8 +45,8 @@ const createCLI = () => {
       const teamSlug = options.team;
       try {
         console.log(`Calculating Organization Team stats for ${options.name}...`);
-        await organizationController.execute(options.name, teamSlug, startDateObject, endDateObject);
-        console.log("Organization team stats saved in file 'output.csv'");
+        await organizationController.execute(options.name, teamSlug, startDateObject, endDateObject, options.savePath);
+        console.log(`Organization stats saved on path ${options.savePath || './output.csv'}`);
       } catch (error) {
         console.error(error.message);
       }

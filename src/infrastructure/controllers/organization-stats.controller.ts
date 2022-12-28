@@ -36,11 +36,12 @@ class OrganizationStatsController {
     );
   }
 
-  async execute(organizationName: string, startDate: Date, endDate: Date) {
+  async execute(organizationName: string, startDate: Date, endDate: Date, savePath: string) {
     const organizationInputDto = new OrganizationInputDto();
     organizationInputDto.name = organizationName;
     organizationInputDto.startDate = startDate;
     organizationInputDto.endDate = endDate;
+    organizationInputDto.savePath = savePath;
     try {
       await validateOrReject(organizationInputDto);
     } catch (errors) {
