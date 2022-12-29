@@ -1,8 +1,8 @@
 import { Command } from "commander";
 import {
   OrganizationStatsController,
+  OrganizationTeamStatsController
 } from "@/infrastructure/controllers";
-import TeamOrganizationStatsController from "../controllers/organizationteam-stats.controller";
 
 const createCLI = () => {
   const program = new Command();
@@ -39,7 +39,7 @@ const createCLI = () => {
     .option("-p, --savePath <savePath>", "Path to save the output file")
     .description("Return organization team statistics")
     .action(async (options) => {
-      const organizationController = new TeamOrganizationStatsController();
+      const organizationController = new OrganizationTeamStatsController();
       const startDateObject = options.startDate ? new Date(options.startDate) : null;
       const endDateObject = options.endDate ? new Date(options.endDate) : null;
       const teamSlug = options.team;
