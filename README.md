@@ -1,4 +1,5 @@
 # Github Stats
+[![CodeFactor](https://www.codefactor.io/repository/github/ianstory99/github-stats/badge)](https://www.codefactor.io/repository/github/ianstory99/github-stats)
 
 ## Requisitos
 - [Node 18.12.0](https://nodejs.org/en/blog/release/v18.12.0/)
