@@ -1,13 +1,33 @@
-## Github Stats
+# Github Stats
 
-# Uso
+## Requisitos
+- [Node 18.12.0](https://nodejs.org/en/blog/release/v18.12.0/)
+
+## Uso
     
-    - Crear archivo ".env" tomando como base al de ejemplo .env.example
-    - Los valores de las fechas son opcionales:
-        - En caso de no especificar startDate -> se coge el último mes hasta endDate
-        - En caso de no especificar endDate -> se coge el día de hoy
-        - En caso de no especificar ninguno de los dos -> se cogen los datos del último mes a partir de hoy
+- Crear archivo ".env" tomando como base al de ejemplo `.env.example` y completar los datos de autenticación de Github.
+- Ejecutar los siguientes comandos de inicializacion
 
+```bash
     $ npm install
     $ npm run migration:run
-    $ npm run cli -- organization --name=<nombre> --startDate=<fecha inicio> --endDate=<fecha fin>
+```
+- Ejecutar el comando deseado. Los comandos pueden ser:
+    - `organization` => Obtiene las estadísticas de una organización, sus equipos e integrantes.
+        ```bash
+        $ npm run cli -- organization --name=<nombre de la organización> --startDate=<fecha inicio> --endDate=<fecha fin> --savePath=<ruta de guardado>
+        ```
+
+    - `organization-team` => Obtiene las estadísticas de un equipo de una organización y sus integrantes
+        ```bash
+        $ npm run cli -- organization-team --name=<nombre de la organización> --team=<nombre del equipo> --startDate=<fecha inicio> --endDate=<fecha fin> --savePath=<ruta de guardado>
+        ```
+        - En caso de no especificar `startDate` -> Se coge el ultimo mes hasta `endDate`
+        - En caso de no especificar `endDate` -> Se coge el día de hoy
+        - En caso de no especificar ninguna fecha -> Se cogen los datos del último mes a partir de hoy
+        - En caso de no especificar `savePath` -> Se guarda el resultado en el directorio raíz del proyecto con el nombre `output.csv`
+
+## Ejemplo
+```bash
+$ npm run cli -- organization --name=upbirk-com --startDate=2021-01-01 --endDate=2021-12-31 --savePath=./data.csv
+```
