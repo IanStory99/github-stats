@@ -340,7 +340,6 @@ class GithubOrganizationRepository implements OrganizationRepositoryInterface {
 
 
   public async findById(organizationDTO): Promise<OrganizationEntity> {
-    console.log(`Retrieving ${organizationDTO.name} organization data from Github...`)
     const repoList: RepositoryEntity[] = await this.getRepositoriesByOrganization(organizationDTO.name);
     const teamList: TeamEntity[] = await this.getTeamsByOrganization(organizationDTO.name);
 
