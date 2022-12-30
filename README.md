@@ -12,7 +12,7 @@
 
 ```bash
     $ npm install
-    $ npm run migration:run
+    $ npm run init
 ```
 - Ejecutar el comando deseado. Los comandos pueden ser:
     - `organization` => Obtiene las estadísticas de una organización, sus equipos e integrantes.
