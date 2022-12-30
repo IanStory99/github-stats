@@ -14,8 +14,10 @@
     "prisma:generate": "prisma generate --schema ./src/infrastructure/database/schema.prisma",
     "migration:make": "prisma migrate dev --schema ./src/infrastructure/database/schema.prisma",
     "migration:run": "prisma migrate deploy --schema ./src/infrastructure/database/schema.prisma",
-    "cli": "ts-node -r tsconfig-paths/register ./src/infrastructure/cli/index.ts"
+    "cli": "ts-node -r tsconfig-paths/register ./src/infrastructure/cli/index.ts",
+    "init": "npm run prisma:generate && npm run migration:run"
   },
+  "bin": "./src/infrastructure/cli/index.ts",
   "prisma": {
     "schema": "src/prisma/schema.prisma"
   },
@@ -38,6 +40,7 @@
     "eslint": "^8.20.0",
     "jest": "^28.1.1",
     "ora": "^3.4.0",
+    "pkg": "^5.8.0",
     "prisma": "^4.1.0",
     "supertest": "^6.2.4",
     "ts-jest": "^28.0.7",
