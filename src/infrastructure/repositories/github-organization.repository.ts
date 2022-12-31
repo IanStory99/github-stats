@@ -46,7 +46,8 @@ class GithubOrganizationRepository implements OrganizationRepositoryInterface {
       }
       return data;
     } catch (e) {
-      throw new Error(`Something went wrong trying to getDataByOrganization: ${e}`);
+      throw new Error(`Something went wrong, it could be the Github Access Token, please check the documentation 
+      https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token.\nError: ${e}`);
     }
   }
 
