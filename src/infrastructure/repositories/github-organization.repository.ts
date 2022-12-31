@@ -202,6 +202,41 @@ class GithubOrganizationRepository implements OrganizationRepositoryInterface {
     return query;
   }
 
+  // TODO: FIRST VERSION
+  private builderQueryGetTeamByUserId(userId: string, recordsPerPage: number, nextPageCursor?: string, organizationId?: string, teamSlug?: string) {
+    const nextPage = nextPageCursor ? `, after: "${nextPageCursor}"` : ``;
+    const pagePointer = `first: ${recordsPerPage}${nextPage}`
+    const filterOrganization = teamSlug ? `, query: "${organizationId}" ` : ``;
+    const filterTeam = teamSlug ? `, query: "${teamSlug}" ` : ``;
+    const query = `
+        query {
+            user(login: "${userId}") {
+              id
+              organizations(${pagePointer} ${filterOrganization}) {
+                teams(${pagePointer} ${filterTeam}) {
+                  pageInfo {
+                    hasNextPage
+                    endCursor
+                  }
+                  totalCount
+                  nodes {
+                    id
+                    name
+                    createdAt
+                    members (orderBy: {field: CREATED_AT, direction: ASC}) {
+                      nodes {
+                        login
+                      }
+                      totalCount
+                    }
+                  }
+                }
+              }
+            }
+        }`
+    return query;
+  }
+
   private async getTeamsByOrganization(organizationId: string, teamSlug?: string): Promise<TeamEntity[]> {
     const teamList: TeamEntity[] = [];
     const teamMapper: Mapper<TeamEntity> = new TeamMap();
@@ -361,6 +396,26 @@ class GithubOrganizationRepository implements OrganizationRepositoryInterface {
   public async getOrganizationByIdFilteredByTeamSlug(organizationTeamDTO: OrganizationTeamInputDto): Promise<OrganizationEntity> {
     const repoList: RepositoryEntity[] = await this.getRepositoriesByOrganization(organizationTeamDTO.name);
     const teamList: TeamEntity[] = await this.getTeamsByOrganization(organizationTeamDTO.name, organizationTeamDTO.teamSlug);
+
+    for await (const repository of repoList) {
+      const pullRequests = await this.getPullRequestsByRepository(organizationTeamDTO, repository);
+      repository.setPullRequests(pullRequests);
+    }
+
+    const organizationInstance = new OrganizationEntity(
+      organizationTeamDTO.name,
+      organizationTeamDTO.name,
+      repoList,
+      teamList
+    )
+    return organizationInstance;
+  }
+
+
+  // TODO
+  public async getTeamByIdFilteredByUserSlug(organizationTeamDTO: OrganizationTeamInputDto): Promise<OrganizationEntity> {
+    const repoList: RepositoryEntity[] = await this.getRepositoriesByOrganization(organizationTeamDTO.name);
+    const teamList: TeamEntity[] = await this.getTeamsByUser(organizationTeamDTO.name, organizationTeamDTO.teamSlug);
 
     for await (const repository of repoList) {
       const pullRequests = await this.getPullRequestsByRepository(organizationTeamDTO, repository);
